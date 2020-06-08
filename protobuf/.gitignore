@@ -1,0 +1,5 @@
+protoc**/
+movie-service**/
+.vscode/
+**.zip
+**.exe
