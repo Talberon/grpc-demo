@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// option java_multiple_files = true;
+option java_package = "grpc.demo.java.moviecatalog";
+option java_outer_classname = "MovieCatalogProto";
+
+package moviecatalog;
+
+// The movie service definition.
+service MovieCatalog {
+
+  // Adds a movie to the repository
+  rpc SaveNewMovie (MovieItem) returns (AddMovieResponse) {}
+
+  //Retrieves a movie from the repository
+  rpc FetchExistingMovie (FetchMovieRequest) returns (MovieItem) {}
+}
+
+// The payload for requesting a given item
+message MovieItem {
+
+    //The name of the movie
+    string name = 1;
+
+    //The price of the movie
+    double price = 2;
+
+    //Is this movie currently in stock?
+    bool inStock = 3;
+}
+
+//The response returned after save call
+message AddMovieResponse {
+    //Was the item saved to the datastore?
+    bool wasSaved = 1;
+
+    //What is the id for the given item?
+    int32 itemId = 2;
+}
+
+message FetchMovieRequest {
+    string name = 1;
+}
