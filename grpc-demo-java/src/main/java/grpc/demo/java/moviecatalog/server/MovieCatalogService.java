@@ -65,6 +65,7 @@ public class MovieCatalogService extends MovieCatalogGrpc.MovieCatalogImplBase {
         .anyMatch(movie -> movie.getName().equalsIgnoreCase(request.getName()));
 
     if (movieAlreadyExists) {
+      System.err.println("Movie " + request.getName() + " already exists!");
       responseObserver.onError(new StatusException(ALREADY_EXISTS));
     } else {
 
