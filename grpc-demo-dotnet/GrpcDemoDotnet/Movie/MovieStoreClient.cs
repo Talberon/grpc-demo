@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using Grpc.Core;
 using Moviecatalog;
 
-namespace grpc_demo_dotnet
+namespace grpc_demo_dotnet.Movie
 {
-    internal static class Client
+    public class MovieStoreClient
     {
-        private static void Main(string[] args)
+        public static void Run()
         {
             Console.WriteLine("Starting gRPC client...");
 
