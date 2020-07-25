@@ -44,7 +44,6 @@ namespace grpc_demo_dotnet.WebChat
                 ? _chatRooms[chatRoom.ChatRoomId]
                 : _chatRooms[chatRoom.ChatRoomId] = new ChatRoomLog(new List<ChatMessage>());
 
-
             Console.WriteLine($"Joining chat room '{chatRoom.ChatRoomId}'...");
 
             int previousMessageCount = currentRoomLog.MessageLog.Count;

@@ -6,9 +6,8 @@ namespace grpc_demo_dotnet
     {
         private static void Main(string[] args)
         {
-            WebChatServer.Run();
-            
-            // WebChatClient.Run();
+            if (args[0] == "server") WebChatServer.Run();
+            if (args[0] == "client") WebChatClient.Run();
         }
     }
 }
