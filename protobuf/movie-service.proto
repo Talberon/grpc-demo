@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // option java_multiple_files = true;
-option java_package = "grpc.demo.java.moviecatalog";
+option java_package = "grpc.demo.java.moviecatalog.proto";
 option java_outer_classname = "MovieCatalogProto";
 
 package moviecatalog;
