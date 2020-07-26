@@ -3,10 +3,10 @@ package grpc.demo.java.moviecatalog.server;
 import static io.grpc.Status.ALREADY_EXISTS;
 import static io.grpc.Status.NOT_FOUND;
 
-import grpc.demo.java.moviecatalog.MovieCatalogGrpc;
-import grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse;
-import grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest;
-import grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem;
+import grpc.demo.java.moviecatalog.proto.MovieCatalogGrpc;
+import grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse;
+import grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest;
+import grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem;
 import io.grpc.StatusException;
 import io.grpc.stub.StreamObserver;
 import java.util.ArrayList;
