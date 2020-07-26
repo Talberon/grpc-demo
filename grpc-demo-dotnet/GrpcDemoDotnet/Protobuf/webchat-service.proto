@@ -1,9 +1,21 @@
 syntax = "proto3";
 
+option java_package = "grpc.demo.java.webchat.proto";
+option java_outer_classname = "WebChatProto";
+
 package webchat;
 
 service WebChat {
+  //Server Streaming
   rpc JoinChatRoom (ChatRoom) returns (stream ChatMessage) {}
+
+  //Client-side Streaming
+  rpc StreamMessagesToServer (stream ChatMessage) returns (SendReceipt) {}
+
+  //Bidirectional Streaming
+  rpc JoinStreamSession (stream ChatMessage) returns (stream ChatMessage) {}
+
+  //Unary Call
   rpc SendMessage (ChatMessage) returns (SendReceipt) {}
 }
 

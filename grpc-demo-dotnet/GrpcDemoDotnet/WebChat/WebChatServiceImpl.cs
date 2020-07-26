@@ -52,13 +52,14 @@ namespace grpc_demo_dotnet.WebChat
             {
                 Thread.Sleep(HeartbeatInterval);
 
-                //TODO Handle if messages are edited
+                //TODO Handle if messages are edited (if we add that functionality)
                 int messageChange = previousMessageCount - currentRoomLog.MessageLog.Count;
-                
-                Console.WriteLine($"Previous count: {previousMessageCount} / Current Count: {currentRoomLog.MessageLog.Count}");
+
+                Console.WriteLine(
+                    $"Previous count: {previousMessageCount} / Current Count: {currentRoomLog.MessageLog.Count}");
 
                 if (messageChange == 0) continue;
-                
+
                 Console.WriteLine($"Message count changed!");
 
                 for (int i = previousMessageCount; i < currentRoomLog.MessageLog.Count; i++)
@@ -67,9 +68,49 @@ namespace grpc_demo_dotnet.WebChat
                     Console.WriteLine($"Sending message {message} to client...");
                     await responseStream.WriteAsync(message);
                 }
-                    
-                previousMessageCount = currentRoomLog.MessageLog.Count;
 
+                previousMessageCount = currentRoomLog.MessageLog.Count;
+            }
+        }
+
+        public override async Task<SendReceipt> StreamMessagesToServer(IAsyncStreamReader<ChatMessage> requestStream,
+            ServerCallContext context)
+        {
+            Console.WriteLine("Opening stream with client...");
+
+            await foreach (ChatMessage message in requestStream.ReadAllAsync())
+            {
+                Console.WriteLine($"Received streaming message from client: {message}");
+            }
+
+            var sendReceipt = new SendReceipt {SentSuccessfully = true};
+            Console.WriteLine($"Returning send receipt: {sendReceipt}");
+            return sendReceipt;
+        }
+
+        public override async Task JoinStreamSession(IAsyncStreamReader<ChatMessage> requestStream,
+            IServerStreamWriter<ChatMessage> responseStream, ServerCallContext context)
+        {
+            Console.WriteLine("Starting bidirectional stream with client...");
+
+            while (!context.CancellationToken.IsCancellationRequested)
+            {
+                await foreach (ChatMessage requestMessage in requestStream.ReadAllAsync())
+                {
+                    Console.WriteLine($"Received streaming message from client: {requestMessage}");
+
+                    var timeMessage = new ChatMessage
+                    {
+                        TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                        Message = $"The mockingbird says: {requestMessage.Message}",
+                        Nickname = "Time Server",
+                        ClientLanguage = "C#",
+                        ChatRoom = requestMessage.ChatRoom
+                    };
+
+                    Console.WriteLine($"Sending message {timeMessage} to client...");
+                    await responseStream.WriteAsync(timeMessage);
+                }
             }
         }
     }
