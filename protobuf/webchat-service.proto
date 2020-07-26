@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_package = "grpc.demo.java.webchat.proto";
+option java_outer_classname = "WebChatProto";
+
+package webchat;
+
+service WebChat {
+    //Server Streaming
+    rpc JoinChatRoom (ChatRoom) returns (stream ChatMessage) {}
+
+    //Client-side Streaming
+    rpc StreamMessagesToServer (stream ChatMessage) returns (SendReceipt) {}
+
+    //Bidirectional Streaming
+    rpc JoinStreamSession (stream ChatMessage) returns (stream ChatMessage) {}
+
+    //Unary Call
+    rpc SendMessage (ChatMessage) returns (SendReceipt) {}
+}
+
+message ChatRoom {
+    string chatRoomId = 1;
+}
+
+message ChatMessage {
+
+    //The room the message should be sent to
+    ChatRoom chatRoom = 1;
+
+    //The content of the given chat message e.g. "Hello world!"
+    string message = 2;
+
+    //Time the message was generated
+    int64 timeGeneratedEpochMillis = 3;
+    
+    //User who sent the message
+    string nickname = 4;
+    
+    //Implementation language name e.g. C#, Java, Swift, Javascript, etc.
+    string clientLanguage = 5;
+}
+
+message SendReceipt {
+    bool sentSuccessfully = 1;
+}

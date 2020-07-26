@@ -1,4 +1,4 @@
-package grpc.demo.java.moviecatalog;
+package grpc.demo.java.moviecatalog.proto;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
@@ -30,29 +30,29 @@ public final class MovieCatalogGrpc {
   public static final String SERVICE_NAME = "moviecatalog.MovieCatalog";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem,
-      grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse> getSaveNewMovieMethod;
+  private static volatile io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem,
+      grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> getSaveNewMovieMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "SaveNewMovie",
-      requestType = grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem.class,
-      responseType = grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse.class,
+      requestType = grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem.class,
+      responseType = grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem,
-      grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse> getSaveNewMovieMethod() {
-    io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem, grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse> getSaveNewMovieMethod;
+  public static io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem,
+      grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> getSaveNewMovieMethod() {
+    io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem, grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> getSaveNewMovieMethod;
     if ((getSaveNewMovieMethod = MovieCatalogGrpc.getSaveNewMovieMethod) == null) {
       synchronized (MovieCatalogGrpc.class) {
         if ((getSaveNewMovieMethod = MovieCatalogGrpc.getSaveNewMovieMethod) == null) {
           MovieCatalogGrpc.getSaveNewMovieMethod = getSaveNewMovieMethod =
-              io.grpc.MethodDescriptor.<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem, grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse>newBuilder()
+              io.grpc.MethodDescriptor.<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem, grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SaveNewMovie"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem.getDefaultInstance()))
+                  grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse.getDefaultInstance()))
+                  grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse.getDefaultInstance()))
               .setSchemaDescriptor(new MovieCatalogMethodDescriptorSupplier("SaveNewMovie"))
               .build();
         }
@@ -61,29 +61,29 @@ public final class MovieCatalogGrpc {
     return getSaveNewMovieMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest,
-      grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem> getFetchExistingMovieMethod;
+  private static volatile io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest,
+      grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> getFetchExistingMovieMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "FetchExistingMovie",
-      requestType = grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest.class,
-      responseType = grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem.class,
+      requestType = grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest.class,
+      responseType = grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest,
-      grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem> getFetchExistingMovieMethod() {
-    io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest, grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem> getFetchExistingMovieMethod;
+  public static io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest,
+      grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> getFetchExistingMovieMethod() {
+    io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest, grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> getFetchExistingMovieMethod;
     if ((getFetchExistingMovieMethod = MovieCatalogGrpc.getFetchExistingMovieMethod) == null) {
       synchronized (MovieCatalogGrpc.class) {
         if ((getFetchExistingMovieMethod = MovieCatalogGrpc.getFetchExistingMovieMethod) == null) {
           MovieCatalogGrpc.getFetchExistingMovieMethod = getFetchExistingMovieMethod =
-              io.grpc.MethodDescriptor.<grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest, grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem>newBuilder()
+              io.grpc.MethodDescriptor.<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest, grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "FetchExistingMovie"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest.getDefaultInstance()))
+                  grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem.getDefaultInstance()))
+                  grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem.getDefaultInstance()))
               .setSchemaDescriptor(new MovieCatalogMethodDescriptorSupplier("FetchExistingMovie"))
               .build();
         }
@@ -148,8 +148,8 @@ public final class MovieCatalogGrpc {
      * Adds a movie to the repository
      * </pre>
      */
-    public void saveNewMovie(grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem request,
-        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse> responseObserver) {
+    public void saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request,
+        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getSaveNewMovieMethod(), responseObserver);
     }
 
@@ -158,8 +158,8 @@ public final class MovieCatalogGrpc {
      *Retrieves a movie from the repository
      * </pre>
      */
-    public void fetchExistingMovie(grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest request,
-        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem> responseObserver) {
+    public void fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request,
+        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> responseObserver) {
       asyncUnimplementedUnaryCall(getFetchExistingMovieMethod(), responseObserver);
     }
 
@@ -169,15 +169,15 @@ public final class MovieCatalogGrpc {
             getSaveNewMovieMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem,
-                grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse>(
+                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem,
+                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse>(
                   this, METHODID_SAVE_NEW_MOVIE)))
           .addMethod(
             getFetchExistingMovieMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest,
-                grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem>(
+                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest,
+                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem>(
                   this, METHODID_FETCH_EXISTING_MOVIE)))
           .build();
     }
@@ -205,8 +205,8 @@ public final class MovieCatalogGrpc {
      * Adds a movie to the repository
      * </pre>
      */
-    public void saveNewMovie(grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem request,
-        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse> responseObserver) {
+    public void saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request,
+        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getSaveNewMovieMethod(), getCallOptions()), request, responseObserver);
     }
@@ -216,8 +216,8 @@ public final class MovieCatalogGrpc {
      *Retrieves a movie from the repository
      * </pre>
      */
-    public void fetchExistingMovie(grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest request,
-        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem> responseObserver) {
+    public void fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request,
+        io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getFetchExistingMovieMethod(), getCallOptions()), request, responseObserver);
     }
@@ -245,7 +245,7 @@ public final class MovieCatalogGrpc {
      * Adds a movie to the repository
      * </pre>
      */
-    public grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse saveNewMovie(grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem request) {
+    public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request) {
       return blockingUnaryCall(
           getChannel(), getSaveNewMovieMethod(), getCallOptions(), request);
     }
@@ -255,7 +255,7 @@ public final class MovieCatalogGrpc {
      *Retrieves a movie from the repository
      * </pre>
      */
-    public grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem fetchExistingMovie(grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest request) {
+    public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request) {
       return blockingUnaryCall(
           getChannel(), getFetchExistingMovieMethod(), getCallOptions(), request);
     }
@@ -283,8 +283,8 @@ public final class MovieCatalogGrpc {
      * Adds a movie to the repository
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse> saveNewMovie(
-        grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem request) {
+    public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> saveNewMovie(
+        grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request) {
       return futureUnaryCall(
           getChannel().newCall(getSaveNewMovieMethod(), getCallOptions()), request);
     }
@@ -294,8 +294,8 @@ public final class MovieCatalogGrpc {
      *Retrieves a movie from the repository
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem> fetchExistingMovie(
-        grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> fetchExistingMovie(
+        grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request) {
       return futureUnaryCall(
           getChannel().newCall(getFetchExistingMovieMethod(), getCallOptions()), request);
     }
@@ -322,12 +322,12 @@ public final class MovieCatalogGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_SAVE_NEW_MOVIE:
-          serviceImpl.saveNewMovie((grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem) request,
-              (io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.MovieCatalogProto.AddMovieResponse>) responseObserver);
+          serviceImpl.saveNewMovie((grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem) request,
+              (io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse>) responseObserver);
           break;
         case METHODID_FETCH_EXISTING_MOVIE:
-          serviceImpl.fetchExistingMovie((grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest) request,
-              (io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem>) responseObserver);
+          serviceImpl.fetchExistingMovie((grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest) request,
+              (io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -351,7 +351,7 @@ public final class MovieCatalogGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return grpc.demo.java.moviecatalog.MovieCatalogProto.getDescriptor();
+      return grpc.demo.java.moviecatalog.proto.MovieCatalogProto.getDescriptor();
     }
 
     @java.lang.Override

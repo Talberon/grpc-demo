@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grpc-demo-dotnet", "grpc-demo-dotnet\grpc-demo-dotnet.csproj", "{6F8B43FC-C4A3-4D07-8386-1783CDA79F2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcDemoDotnet", "GrpcDemoDotnet\GrpcDemoDotnet.csproj", "{6F8B43FC-C4A3-4D07-8386-1783CDA79F2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

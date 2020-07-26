@@ -1,8 +1,8 @@
 package grpc.demo.java.moviecatalog.client;
 
-import grpc.demo.java.moviecatalog.MovieCatalogGrpc;
-import grpc.demo.java.moviecatalog.MovieCatalogProto.FetchMovieRequest;
-import grpc.demo.java.moviecatalog.MovieCatalogProto.MovieItem;
+import grpc.demo.java.moviecatalog.proto.MovieCatalogGrpc;
+import grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest;
+import grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem;
 import io.grpc.ManagedChannelBuilder;
 
 public class MovieClient {
