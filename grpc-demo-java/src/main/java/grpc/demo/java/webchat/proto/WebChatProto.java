@@ -2431,11 +2431,15 @@ public final class WebChatProto {
       "\007message\030\002 \001(\t\022 \n\030timeGeneratedEpochMill" +
       "is\030\003 \001(\003\022\020\n\010nickname\030\004 \001(\t\022\026\n\016clientLang" +
       "uage\030\005 \001(\t\"\'\n\013SendReceipt\022\030\n\020sentSuccess" +
-      "fully\030\001 \001(\0102\203\001\n\007WebChat\022;\n\014JoinChatRoom\022" +
+      "fully\030\001 \001(\0102\224\002\n\007WebChat\022;\n\014JoinChatRoom\022" +
       "\021.webchat.ChatRoom\032\024.webchat.ChatMessage" +
-      "\"\0000\001\022;\n\013SendMessage\022\024.webchat.ChatMessag" +
-      "e\032\024.webchat.SendReceipt\"\000B,\n\034grpc.demo.j" +
-      "ava.webchat.protoB\014WebChatProtob\006proto3"
+      "\"\0000\001\022H\n\026StreamMessagesToServer\022\024.webchat" +
+      ".ChatMessage\032\024.webchat.SendReceipt\"\000(\001\022E" +
+      "\n\021JoinStreamSession\022\024.webchat.ChatMessag" +
+      "e\032\024.webchat.ChatMessage\"\000(\0010\001\022;\n\013SendMes" +
+      "sage\022\024.webchat.ChatMessage\032\024.webchat.Sen" +
+      "dReceipt\"\000B,\n\034grpc.demo.java.webchat.pro" +
+      "toB\014WebChatProtob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

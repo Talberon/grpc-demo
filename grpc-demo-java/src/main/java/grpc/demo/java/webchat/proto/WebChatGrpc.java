@@ -59,6 +59,68 @@ public final class WebChatGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+      grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> getStreamMessagesToServerMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "StreamMessagesToServer",
+      requestType = grpc.demo.java.webchat.proto.WebChatProto.ChatMessage.class,
+      responseType = grpc.demo.java.webchat.proto.WebChatProto.SendReceipt.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+      grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> getStreamMessagesToServerMethod() {
+    io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage, grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> getStreamMessagesToServerMethod;
+    if ((getStreamMessagesToServerMethod = WebChatGrpc.getStreamMessagesToServerMethod) == null) {
+      synchronized (WebChatGrpc.class) {
+        if ((getStreamMessagesToServerMethod = WebChatGrpc.getStreamMessagesToServerMethod) == null) {
+          WebChatGrpc.getStreamMessagesToServerMethod = getStreamMessagesToServerMethod =
+              io.grpc.MethodDescriptor.<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage, grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "StreamMessagesToServer"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.demo.java.webchat.proto.WebChatProto.ChatMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.demo.java.webchat.proto.WebChatProto.SendReceipt.getDefaultInstance()))
+              .setSchemaDescriptor(new WebChatMethodDescriptorSupplier("StreamMessagesToServer"))
+              .build();
+        }
+      }
+    }
+    return getStreamMessagesToServerMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+      grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> getJoinStreamSessionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "JoinStreamSession",
+      requestType = grpc.demo.java.webchat.proto.WebChatProto.ChatMessage.class,
+      responseType = grpc.demo.java.webchat.proto.WebChatProto.ChatMessage.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+      grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> getJoinStreamSessionMethod() {
+    io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage, grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> getJoinStreamSessionMethod;
+    if ((getJoinStreamSessionMethod = WebChatGrpc.getJoinStreamSessionMethod) == null) {
+      synchronized (WebChatGrpc.class) {
+        if ((getJoinStreamSessionMethod = WebChatGrpc.getJoinStreamSessionMethod) == null) {
+          WebChatGrpc.getJoinStreamSessionMethod = getJoinStreamSessionMethod =
+              io.grpc.MethodDescriptor.<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage, grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "JoinStreamSession"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.demo.java.webchat.proto.WebChatProto.ChatMessage.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpc.demo.java.webchat.proto.WebChatProto.ChatMessage.getDefaultInstance()))
+              .setSchemaDescriptor(new WebChatMethodDescriptorSupplier("JoinStreamSession"))
+              .build();
+        }
+      }
+    }
+    return getJoinStreamSessionMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
       grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> getSendMessageMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
@@ -138,6 +200,9 @@ public final class WebChatGrpc {
   public static abstract class WebChatImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     *Server Streaming
+     * </pre>
      */
     public void joinChatRoom(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
@@ -145,6 +210,29 @@ public final class WebChatGrpc {
     }
 
     /**
+     * <pre>
+     *Client-side Streaming
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> streamMessagesToServer(
+        io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
+      return asyncUnimplementedStreamingCall(getStreamMessagesToServerMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     *Bidirectional Streaming
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> joinStreamSession(
+        io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
+      return asyncUnimplementedStreamingCall(getJoinStreamSessionMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     *Unary Call
+     * </pre>
      */
     public void sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
@@ -160,6 +248,20 @@ public final class WebChatGrpc {
                 grpc.demo.java.webchat.proto.WebChatProto.ChatRoom,
                 grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>(
                   this, METHODID_JOIN_CHAT_ROOM)))
+          .addMethod(
+            getStreamMessagesToServerMethod(),
+            asyncClientStreamingCall(
+              new MethodHandlers<
+                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+                grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>(
+                  this, METHODID_STREAM_MESSAGES_TO_SERVER)))
+          .addMethod(
+            getJoinStreamSessionMethod(),
+            asyncBidiStreamingCall(
+              new MethodHandlers<
+                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>(
+                  this, METHODID_JOIN_STREAM_SESSION)))
           .addMethod(
             getSendMessageMethod(),
             asyncUnaryCall(
@@ -186,6 +288,9 @@ public final class WebChatGrpc {
     }
 
     /**
+     * <pre>
+     *Server Streaming
+     * </pre>
      */
     public void joinChatRoom(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
@@ -194,6 +299,31 @@ public final class WebChatGrpc {
     }
 
     /**
+     * <pre>
+     *Client-side Streaming
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> streamMessagesToServer(
+        io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(getStreamMessagesToServerMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     * <pre>
+     *Bidirectional Streaming
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> joinStreamSession(
+        io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getJoinStreamSessionMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     * <pre>
+     *Unary Call
+     * </pre>
      */
     public void sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
@@ -217,6 +347,9 @@ public final class WebChatGrpc {
     }
 
     /**
+     * <pre>
+     *Server Streaming
+     * </pre>
      */
     public java.util.Iterator<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> joinChatRoom(
         grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request) {
@@ -225,6 +358,9 @@ public final class WebChatGrpc {
     }
 
     /**
+     * <pre>
+     *Unary Call
+     * </pre>
      */
     public grpc.demo.java.webchat.proto.WebChatProto.SendReceipt sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request) {
       return blockingUnaryCall(
@@ -247,6 +383,9 @@ public final class WebChatGrpc {
     }
 
     /**
+     * <pre>
+     *Unary Call
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> sendMessage(
         grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request) {
@@ -257,6 +396,8 @@ public final class WebChatGrpc {
 
   private static final int METHODID_JOIN_CHAT_ROOM = 0;
   private static final int METHODID_SEND_MESSAGE = 1;
+  private static final int METHODID_STREAM_MESSAGES_TO_SERVER = 2;
+  private static final int METHODID_JOIN_STREAM_SESSION = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -293,6 +434,12 @@ public final class WebChatGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_STREAM_MESSAGES_TO_SERVER:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.streamMessagesToServer(
+              (io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>) responseObserver);
+        case METHODID_JOIN_STREAM_SESSION:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.joinStreamSession(
+              (io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -345,6 +492,8 @@ public final class WebChatGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new WebChatFileDescriptorSupplier())
               .addMethod(getJoinChatRoomMethod())
+              .addMethod(getStreamMessagesToServerMethod())
+              .addMethod(getJoinStreamSessionMethod())
               .addMethod(getSendMessageMethod())
               .build();
         }
