@@ -5,6 +5,9 @@ import grpc.demo.java.webchat.proto.WebChatGrpc.WebChatBlockingStub;
 import grpc.demo.java.webchat.proto.WebChatProto.ChatMessage;
 import grpc.demo.java.webchat.proto.WebChatProto.ChatRoom;
 import io.grpc.ManagedChannelBuilder;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -12,7 +15,8 @@ public class WebChatClient {
 
   private static Thread roomThread;
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) throws IOException {
+    //Connect to the server
     var channel = ManagedChannelBuilder
         .forAddress("localhost", 9090)
         .usePlaintext() //No encryption
@@ -20,13 +24,17 @@ public class WebChatClient {
     var client = WebChatGrpc.newBlockingStub(channel); //Synchronous calls to the service
     System.out.println("Started client on " + channel.authority() + "...");
 
+    //Define the chat room we want to join
     var chatRoom = ChatRoom.newBuilder().setChatRoomId("My Cool Room For Cool People").build();
 
     StartChatRoomSession(client, chatRoom);
     SendMessagesToRoom(client, chatRoom);
 
-    Thread.sleep(1_000_000);
-    roomThread.interrupt();
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    System.out.println("Press ENTER to shut down...");
+    reader.readLine(); //Block shutdown until we enter something
+
+    channel.shutdownNow();
     System.out.println("Shutting down...");
   }
 

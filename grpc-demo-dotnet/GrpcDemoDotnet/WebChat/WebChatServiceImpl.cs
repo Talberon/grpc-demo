@@ -14,9 +14,11 @@ namespace grpc_demo_dotnet.WebChat
 
         public WebChatServiceImpl()
         {
+            //Create an in-memory collection of rooms
             _chatRooms = new Dictionary<string, ChatRoomLog>();
         }
 
+        //Unary call; sends a single message to a specified room
         public override Task<SendReceipt> SendMessage(ChatMessage message, ServerCallContext context)
         {
             if (!_chatRooms.ContainsKey(message.ChatRoom.ChatRoomId))
@@ -37,6 +39,7 @@ namespace grpc_demo_dotnet.WebChat
             });
         }
 
+        //Server-side streaming; sends stream of messages to the client as they are added
         public override async Task JoinChatRoom(ChatRoom chatRoom, IServerStreamWriter<ChatMessage> responseStream,
             ServerCallContext context)
         {
@@ -48,6 +51,7 @@ namespace grpc_demo_dotnet.WebChat
 
             int previousMessageCount = currentRoomLog.MessageLog.Count;
 
+            //Loop until client disconnects
             while (!context.CancellationToken.IsCancellationRequested)
             {
                 Thread.Sleep(HeartbeatInterval);
