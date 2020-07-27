@@ -19,6 +19,7 @@ const packageDefinition = protoLoader.loadSync(
 const chatClientProto = grpc.loadPackageDefinition(packageDefinition).webchat;
 
 function main() {
+    //Set up the client
     let client = new chatClientProto.WebChat('localhost:9090', grpc.credentials.createInsecure());
 
     let chatRoom = {
@@ -27,7 +28,7 @@ function main() {
 
     connectToChatRoom(client, chatRoom);
 
-
+    //Prompt the user for input on the command line for sending messages
     var recursiveQuestions = function () {
         readline.question('Send a message: ', text => {
             sendMessage(chatRoom, text, client);
