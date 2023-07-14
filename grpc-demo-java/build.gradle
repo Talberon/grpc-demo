@@ -13,8 +13,8 @@ plugins {
     id 'application'
 }
 
-def grpcVersion = '1.29.0';
-def protobufVersion = '3.12.2';
+def grpcVersion = '1.56.1';
+def protobufVersion = '3.23.4';
 
 repositories {
     mavenCentral()
@@ -43,7 +43,8 @@ test {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.12.3"
+        //OSX target necessary for M1 Macs
+        artifact = "com.google.protobuf:protoc:${protobufVersion}:osx-x86_64"
     }
     plugins {
         grpc {

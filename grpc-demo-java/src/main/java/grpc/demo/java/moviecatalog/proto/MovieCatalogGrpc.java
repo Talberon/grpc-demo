@@ -1,19 +1,6 @@
 package grpc.demo.java.moviecatalog.proto;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  * <pre>
@@ -21,8 +8,9 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  * </pre>
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.29.0)",
+    value = "by gRPC proto compiler (version 1.56.1)",
     comments = "Source: movie-service.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class MovieCatalogGrpc {
 
   private MovieCatalogGrpc() {}
@@ -141,16 +129,16 @@ public final class MovieCatalogGrpc {
    * The movie service definition.
    * </pre>
    */
-  public static abstract class MovieCatalogImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      * <pre>
      * Adds a movie to the repository
      * </pre>
      */
-    public void saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request,
+    default void saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request,
         io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getSaveNewMovieMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSaveNewMovieMethod(), responseObserver);
     }
 
     /**
@@ -158,37 +146,34 @@ public final class MovieCatalogGrpc {
      *Retrieves a movie from the repository
      * </pre>
      */
-    public void fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request,
+    default void fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request,
         io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> responseObserver) {
-      asyncUnimplementedUnaryCall(getFetchExistingMovieMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getSaveNewMovieMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem,
-                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse>(
-                  this, METHODID_SAVE_NEW_MOVIE)))
-          .addMethod(
-            getFetchExistingMovieMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest,
-                grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem>(
-                  this, METHODID_FETCH_EXISTING_MOVIE)))
-          .build();
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getFetchExistingMovieMethod(), responseObserver);
     }
   }
 
   /**
+   * Base class for the server implementation of the service MovieCatalog.
    * <pre>
    * The movie service definition.
    * </pre>
    */
-  public static final class MovieCatalogStub extends io.grpc.stub.AbstractAsyncStub<MovieCatalogStub> {
+  public static abstract class MovieCatalogImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return MovieCatalogGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service MovieCatalog.
+   * <pre>
+   * The movie service definition.
+   * </pre>
+   */
+  public static final class MovieCatalogStub
+      extends io.grpc.stub.AbstractAsyncStub<MovieCatalogStub> {
     private MovieCatalogStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -207,7 +192,7 @@ public final class MovieCatalogGrpc {
      */
     public void saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request,
         io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSaveNewMovieMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -218,17 +203,19 @@ public final class MovieCatalogGrpc {
      */
     public void fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request,
         io.grpc.stub.StreamObserver<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getFetchExistingMovieMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service MovieCatalog.
    * <pre>
    * The movie service definition.
    * </pre>
    */
-  public static final class MovieCatalogBlockingStub extends io.grpc.stub.AbstractBlockingStub<MovieCatalogBlockingStub> {
+  public static final class MovieCatalogBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<MovieCatalogBlockingStub> {
     private MovieCatalogBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -246,7 +233,7 @@ public final class MovieCatalogGrpc {
      * </pre>
      */
     public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSaveNewMovieMethod(), getCallOptions(), request);
     }
 
@@ -256,17 +243,19 @@ public final class MovieCatalogGrpc {
      * </pre>
      */
     public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getFetchExistingMovieMethod(), getCallOptions(), request);
     }
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service MovieCatalog.
    * <pre>
    * The movie service definition.
    * </pre>
    */
-  public static final class MovieCatalogFutureStub extends io.grpc.stub.AbstractFutureStub<MovieCatalogFutureStub> {
+  public static final class MovieCatalogFutureStub
+      extends io.grpc.stub.AbstractFutureStub<MovieCatalogFutureStub> {
     private MovieCatalogFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -285,7 +274,7 @@ public final class MovieCatalogGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse> saveNewMovie(
         grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSaveNewMovieMethod(), getCallOptions()), request);
     }
 
@@ -296,7 +285,7 @@ public final class MovieCatalogGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem> fetchExistingMovie(
         grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getFetchExistingMovieMethod(), getCallOptions()), request);
     }
   }
@@ -309,10 +298,10 @@ public final class MovieCatalogGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final MovieCatalogImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(MovieCatalogImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -343,6 +332,25 @@ public final class MovieCatalogGrpc {
           throw new AssertionError();
       }
     }
+  }
+
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getSaveNewMovieMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem,
+              grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse>(
+                service, METHODID_SAVE_NEW_MOVIE)))
+        .addMethod(
+          getFetchExistingMovieMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest,
+              grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem>(
+                service, METHODID_FETCH_EXISTING_MOVIE)))
+        .build();
   }
 
   private static abstract class MovieCatalogBaseDescriptorSupplier

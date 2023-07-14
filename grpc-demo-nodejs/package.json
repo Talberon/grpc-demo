@@ -9,10 +9,10 @@
   "author": "Trevor Kendrick",
   "license": "ISC",
   "dependencies": {
+    "@grpc/grpc-js": "^1.8.18",
     "@grpc/proto-loader": "^0.5.4",
     "async": "^3.2.2",
     "google-protobuf": "^3.12.2",
-    "grpc": "^1.24.11",
     "lodash": "^4.17.19",
     "minimist": "^1.2.6"
   }

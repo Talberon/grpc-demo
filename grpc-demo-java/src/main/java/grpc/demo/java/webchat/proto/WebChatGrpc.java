@@ -1,25 +1,13 @@
 package grpc.demo.java.webchat.proto;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.29.0)",
+    value = "by gRPC proto compiler (version 1.56.1)",
     comments = "Source: webchat-service.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class WebChatGrpc {
 
   private WebChatGrpc() {}
@@ -197,16 +185,16 @@ public final class WebChatGrpc {
 
   /**
    */
-  public static abstract class WebChatImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      * <pre>
      *Server Streaming
      * </pre>
      */
-    public void joinChatRoom(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request,
+    default void joinChatRoom(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
-      asyncUnimplementedUnaryCall(getJoinChatRoomMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getJoinChatRoomMethod(), responseObserver);
     }
 
     /**
@@ -214,9 +202,9 @@ public final class WebChatGrpc {
      *Client-side Streaming
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> streamMessagesToServer(
+    default io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> streamMessagesToServer(
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
-      return asyncUnimplementedStreamingCall(getStreamMessagesToServerMethod(), responseObserver);
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getStreamMessagesToServerMethod(), responseObserver);
     }
 
     /**
@@ -224,9 +212,9 @@ public final class WebChatGrpc {
      *Bidirectional Streaming
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> joinStreamSession(
+    default io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> joinStreamSession(
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
-      return asyncUnimplementedStreamingCall(getJoinStreamSessionMethod(), responseObserver);
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getJoinStreamSessionMethod(), responseObserver);
     }
 
     /**
@@ -234,48 +222,28 @@ public final class WebChatGrpc {
      *Unary Call
      * </pre>
      */
-    public void sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request,
+    default void sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
-      asyncUnimplementedUnaryCall(getSendMessageMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getJoinChatRoomMethod(),
-            asyncServerStreamingCall(
-              new MethodHandlers<
-                grpc.demo.java.webchat.proto.WebChatProto.ChatRoom,
-                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>(
-                  this, METHODID_JOIN_CHAT_ROOM)))
-          .addMethod(
-            getStreamMessagesToServerMethod(),
-            asyncClientStreamingCall(
-              new MethodHandlers<
-                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
-                grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>(
-                  this, METHODID_STREAM_MESSAGES_TO_SERVER)))
-          .addMethod(
-            getJoinStreamSessionMethod(),
-            asyncBidiStreamingCall(
-              new MethodHandlers<
-                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
-                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>(
-                  this, METHODID_JOIN_STREAM_SESSION)))
-          .addMethod(
-            getSendMessageMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
-                grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>(
-                  this, METHODID_SEND_MESSAGE)))
-          .build();
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSendMessageMethod(), responseObserver);
     }
   }
 
   /**
+   * Base class for the server implementation of the service WebChat.
    */
-  public static final class WebChatStub extends io.grpc.stub.AbstractAsyncStub<WebChatStub> {
+  public static abstract class WebChatImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return WebChatGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service WebChat.
+   */
+  public static final class WebChatStub
+      extends io.grpc.stub.AbstractAsyncStub<WebChatStub> {
     private WebChatStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -294,7 +262,7 @@ public final class WebChatGrpc {
      */
     public void joinChatRoom(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
-      asyncServerStreamingCall(
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
           getChannel().newCall(getJoinChatRoomMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -305,7 +273,7 @@ public final class WebChatGrpc {
      */
     public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> streamMessagesToServer(
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
-      return asyncClientStreamingCall(
+      return io.grpc.stub.ClientCalls.asyncClientStreamingCall(
           getChannel().newCall(getStreamMessagesToServerMethod(), getCallOptions()), responseObserver);
     }
 
@@ -316,7 +284,7 @@ public final class WebChatGrpc {
      */
     public io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> joinStreamSession(
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> responseObserver) {
-      return asyncBidiStreamingCall(
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getJoinStreamSessionMethod(), getCallOptions()), responseObserver);
     }
 
@@ -327,14 +295,16 @@ public final class WebChatGrpc {
      */
     public void sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request,
         io.grpc.stub.StreamObserver<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSendMessageMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service WebChat.
    */
-  public static final class WebChatBlockingStub extends io.grpc.stub.AbstractBlockingStub<WebChatBlockingStub> {
+  public static final class WebChatBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<WebChatBlockingStub> {
     private WebChatBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -353,7 +323,7 @@ public final class WebChatGrpc {
      */
     public java.util.Iterator<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage> joinChatRoom(
         grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request) {
-      return blockingServerStreamingCall(
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
           getChannel(), getJoinChatRoomMethod(), getCallOptions(), request);
     }
 
@@ -363,14 +333,16 @@ public final class WebChatGrpc {
      * </pre>
      */
     public grpc.demo.java.webchat.proto.WebChatProto.SendReceipt sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSendMessageMethod(), getCallOptions(), request);
     }
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service WebChat.
    */
-  public static final class WebChatFutureStub extends io.grpc.stub.AbstractFutureStub<WebChatFutureStub> {
+  public static final class WebChatFutureStub
+      extends io.grpc.stub.AbstractFutureStub<WebChatFutureStub> {
     private WebChatFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -389,7 +361,7 @@ public final class WebChatGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<grpc.demo.java.webchat.proto.WebChatProto.SendReceipt> sendMessage(
         grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSendMessageMethod(), getCallOptions()), request);
     }
   }
@@ -404,10 +376,10 @@ public final class WebChatGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final WebChatImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(WebChatImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -444,6 +416,39 @@ public final class WebChatGrpc {
           throw new AssertionError();
       }
     }
+  }
+
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getJoinChatRoomMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              grpc.demo.java.webchat.proto.WebChatProto.ChatRoom,
+              grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>(
+                service, METHODID_JOIN_CHAT_ROOM)))
+        .addMethod(
+          getStreamMessagesToServerMethod(),
+          io.grpc.stub.ServerCalls.asyncClientStreamingCall(
+            new MethodHandlers<
+              grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+              grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>(
+                service, METHODID_STREAM_MESSAGES_TO_SERVER)))
+        .addMethod(
+          getJoinStreamSessionMethod(),
+          io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+            new MethodHandlers<
+              grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+              grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>(
+                service, METHODID_JOIN_STREAM_SESSION)))
+        .addMethod(
+          getSendMessageMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              grpc.demo.java.webchat.proto.WebChatProto.ChatMessage,
+              grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>(
+                service, METHODID_SEND_MESSAGE)))
+        .build();
   }
 
   private static abstract class WebChatBaseDescriptorSupplier

@@ -1,5 +1,5 @@
 const PROTO_PATH = '../protobuf/movie-service.proto';
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 // Suggested options for similarity to existing grpc.load behavior
 const packageDefinition = protoLoader.loadSync(

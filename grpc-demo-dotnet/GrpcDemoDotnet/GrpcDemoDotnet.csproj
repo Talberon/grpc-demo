@@ -2,23 +2,32 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <RootNamespace>grpc_demo_dotnet</RootNamespace>
+        <LangVersion>11</LangVersion>
+        <Nullable>warnings</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Google.Protobuf" Version="3.15.0" />
-      <PackageReference Include="Grpc" Version="2.29.0" />
-      <PackageReference Include="Grpc.AspNetCore" Version="2.29.0" />
-      <PackageReference Include="Grpc.AspNetCore.Server" Version="2.52.0" />
-      <PackageReference Include="Grpc.Net.Client" Version="2.52.0" />
-      <PackageReference Include="Grpc.Net.ClientFactory" Version="2.29.0" />
-      <PackageReference Include="Grpc.Tools" Version="2.29.0" PrivateAssets="All" />
+      <PackageReference Include="Contrib.Grpc.Core.M1" Version="2.41.0" />
+      <PackageReference Include="Google.Protobuf" Version="3.23.4" />
+      <PackageReference Include="Grpc" Version="2.46.6" />
+      <PackageReference Include="Grpc.AspNetCore" Version="2.55.0" />
+      <PackageReference Include="Grpc.AspNetCore.Server" Version="2.55.0" />
+      <PackageReference Include="Grpc.Net.Client" Version="2.55.0" />
+      <PackageReference Include="Grpc.Net.ClientFactory" Version="2.55.0" />
+      <PackageReference Include="Grpc.Tools" Version="2.56.0" PrivateAssets="All" />
     </ItemGroup>
     
     <ItemGroup>
         <Protobuf Include="Protobuf/movie-service.proto" GrpcServices="MovieCatalog" />
         <Protobuf Include="Protobuf/webchat-service.proto" GrpcServices="WebChat" />
     </ItemGroup>
-
+    
+    <Target Name="CopyGrpcNativeAssetsToOutDir" AfterTargets="Build">
+        <ItemGroup> 
+            <NativeAssetToCopy Condition="$([MSBuild]::IsOSPlatform('OSX'))" Include="$(OutDir)runtimes/osx-arm64/native/*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(NativeAssetToCopy)" DestinationFolder="$(OutDir).azurefunctions/runtimes/osx-arm64/native" /> 
+    </Target>
 </Project>

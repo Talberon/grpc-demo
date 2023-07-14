@@ -53,54 +53,6 @@ public final class WebChatProto {
       return new ChatRoom();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ChatRoom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              chatRoomId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return grpc.demo.java.webchat.proto.WebChatProto.internal_static_webchat_ChatRoom_descriptor;
@@ -115,7 +67,8 @@ public final class WebChatProto {
     }
 
     public static final int CHATROOMID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object chatRoomId_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object chatRoomId_ = "";
     /**
      * <code>string chatRoomId = 1;</code>
      * @return The chatRoomId.
@@ -166,10 +119,10 @@ public final class WebChatProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getChatRoomIdBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(chatRoomId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, chatRoomId_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
     @java.lang.Override
@@ -178,10 +131,10 @@ public final class WebChatProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!getChatRoomIdBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(chatRoomId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, chatRoomId_);
       }
-      size += unknownFields.getSerializedSize();
+      size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
@@ -198,7 +151,7 @@ public final class WebChatProto {
 
       if (!getChatRoomId()
           .equals(other.getChatRoomId())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
@@ -211,7 +164,7 @@ public final class WebChatProto {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + CHATROOMID_FIELD_NUMBER;
       hash = (53 * hash) + getChatRoomId().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
@@ -260,11 +213,13 @@ public final class WebChatProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static grpc.demo.java.webchat.proto.WebChatProto.ChatRoom parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static grpc.demo.java.webchat.proto.WebChatProto.ChatRoom parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -328,24 +283,19 @@ public final class WebChatProto {
 
       // Construct using grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         chatRoomId_ = "";
-
         return this;
       }
 
@@ -372,9 +322,16 @@ public final class WebChatProto {
       @java.lang.Override
       public grpc.demo.java.webchat.proto.WebChatProto.ChatRoom buildPartial() {
         grpc.demo.java.webchat.proto.WebChatProto.ChatRoom result = new grpc.demo.java.webchat.proto.WebChatProto.ChatRoom(this);
-        result.chatRoomId_ = chatRoomId_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.chatRoomId_ = chatRoomId_;
+        }
       }
 
       @java.lang.Override
@@ -423,9 +380,10 @@ public final class WebChatProto {
         if (other == grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.getDefaultInstance()) return this;
         if (!other.getChatRoomId().isEmpty()) {
           chatRoomId_ = other.chatRoomId_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
+        this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
@@ -440,19 +398,38 @@ public final class WebChatProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        grpc.demo.java.webchat.proto.WebChatProto.ChatRoom parsedMessage = null;
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
         try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                chatRoomId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpc.demo.java.webchat.proto.WebChatProto.ChatRoom) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
+          onChanged();
+        } // finally
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object chatRoomId_ = "";
       /**
@@ -495,11 +472,9 @@ public final class WebChatProto {
        */
       public Builder setChatRoomId(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         chatRoomId_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -508,8 +483,8 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder clearChatRoomId() {
-        
         chatRoomId_ = getDefaultInstance().getChatRoomId();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -520,12 +495,10 @@ public final class WebChatProto {
        */
       public Builder setChatRoomIdBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         chatRoomId_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -562,7 +535,18 @@ public final class WebChatProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ChatRoom(input, extensionRegistry);
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
       }
     };
 
@@ -708,84 +692,6 @@ public final class WebChatProto {
       return new ChatMessage();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ChatMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.Builder subBuilder = null;
-              if (chatRoom_ != null) {
-                subBuilder = chatRoom_.toBuilder();
-              }
-              chatRoom_ = input.readMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(chatRoom_);
-                chatRoom_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              message_ = s;
-              break;
-            }
-            case 24: {
-
-              timeGeneratedEpochMillis_ = input.readInt64();
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              nickname_ = s;
-              break;
-            }
-            case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              clientLanguage_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return grpc.demo.java.webchat.proto.WebChatProto.internal_static_webchat_ChatMessage_descriptor;
@@ -834,11 +740,12 @@ public final class WebChatProto {
      */
     @java.lang.Override
     public grpc.demo.java.webchat.proto.WebChatProto.ChatRoomOrBuilder getChatRoomOrBuilder() {
-      return getChatRoom();
+      return chatRoom_ == null ? grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.getDefaultInstance() : chatRoom_;
     }
 
     public static final int MESSAGE_FIELD_NUMBER = 2;
-    private volatile java.lang.Object message_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object message_ = "";
     /**
      * <pre>
      *The content of the given chat message e.g. "Hello world!"
@@ -884,7 +791,7 @@ public final class WebChatProto {
     }
 
     public static final int TIMEGENERATEDEPOCHMILLIS_FIELD_NUMBER = 3;
-    private long timeGeneratedEpochMillis_;
+    private long timeGeneratedEpochMillis_ = 0L;
     /**
      * <pre>
      *Time the message was generated
@@ -899,7 +806,8 @@ public final class WebChatProto {
     }
 
     public static final int NICKNAME_FIELD_NUMBER = 4;
-    private volatile java.lang.Object nickname_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object nickname_ = "";
     /**
      * <pre>
      *User who sent the message
@@ -945,7 +853,8 @@ public final class WebChatProto {
     }
 
     public static final int CLIENTLANGUAGE_FIELD_NUMBER = 5;
-    private volatile java.lang.Object clientLanguage_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object clientLanguage_ = "";
     /**
      * <pre>
      *Implementation language name e.g. C#, Java, Swift, Javascript, etc.
@@ -1007,19 +916,19 @@ public final class WebChatProto {
       if (chatRoom_ != null) {
         output.writeMessage(1, getChatRoom());
       }
-      if (!getMessageBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
       }
       if (timeGeneratedEpochMillis_ != 0L) {
         output.writeInt64(3, timeGeneratedEpochMillis_);
       }
-      if (!getNicknameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nickname_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, nickname_);
       }
-      if (!getClientLanguageBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientLanguage_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, clientLanguage_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
     @java.lang.Override
@@ -1032,20 +941,20 @@ public final class WebChatProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getChatRoom());
       }
-      if (!getMessageBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
       }
       if (timeGeneratedEpochMillis_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(3, timeGeneratedEpochMillis_);
       }
-      if (!getNicknameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(nickname_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, nickname_);
       }
-      if (!getClientLanguageBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientLanguage_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, clientLanguage_);
       }
-      size += unknownFields.getSerializedSize();
+      size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
@@ -1073,7 +982,7 @@ public final class WebChatProto {
           .equals(other.getNickname())) return false;
       if (!getClientLanguage()
           .equals(other.getClientLanguage())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
@@ -1097,7 +1006,7 @@ public final class WebChatProto {
       hash = (53 * hash) + getNickname().hashCode();
       hash = (37 * hash) + CLIENTLANGUAGE_FIELD_NUMBER;
       hash = (53 * hash) + getClientLanguage().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
@@ -1146,11 +1055,13 @@ public final class WebChatProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static grpc.demo.java.webchat.proto.WebChatProto.ChatMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static grpc.demo.java.webchat.proto.WebChatProto.ChatMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1214,36 +1125,27 @@ public final class WebChatProto {
 
       // Construct using grpc.demo.java.webchat.proto.WebChatProto.ChatMessage.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (chatRoomBuilder_ == null) {
-          chatRoom_ = null;
-        } else {
-          chatRoom_ = null;
+        bitField0_ = 0;
+        chatRoom_ = null;
+        if (chatRoomBuilder_ != null) {
+          chatRoomBuilder_.dispose();
           chatRoomBuilder_ = null;
         }
         message_ = "";
-
         timeGeneratedEpochMillis_ = 0L;
-
         nickname_ = "";
-
         clientLanguage_ = "";
-
         return this;
       }
 
@@ -1270,17 +1172,30 @@ public final class WebChatProto {
       @java.lang.Override
       public grpc.demo.java.webchat.proto.WebChatProto.ChatMessage buildPartial() {
         grpc.demo.java.webchat.proto.WebChatProto.ChatMessage result = new grpc.demo.java.webchat.proto.WebChatProto.ChatMessage(this);
-        if (chatRoomBuilder_ == null) {
-          result.chatRoom_ = chatRoom_;
-        } else {
-          result.chatRoom_ = chatRoomBuilder_.build();
-        }
-        result.message_ = message_;
-        result.timeGeneratedEpochMillis_ = timeGeneratedEpochMillis_;
-        result.nickname_ = nickname_;
-        result.clientLanguage_ = clientLanguage_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.chatRoom_ = chatRoomBuilder_ == null
+              ? chatRoom_
+              : chatRoomBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.message_ = message_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.timeGeneratedEpochMillis_ = timeGeneratedEpochMillis_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.nickname_ = nickname_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.clientLanguage_ = clientLanguage_;
+        }
       }
 
       @java.lang.Override
@@ -1332,6 +1247,7 @@ public final class WebChatProto {
         }
         if (!other.getMessage().isEmpty()) {
           message_ = other.message_;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         if (other.getTimeGeneratedEpochMillis() != 0L) {
@@ -1339,13 +1255,15 @@ public final class WebChatProto {
         }
         if (!other.getNickname().isEmpty()) {
           nickname_ = other.nickname_;
+          bitField0_ |= 0x00000008;
           onChanged();
         }
         if (!other.getClientLanguage().isEmpty()) {
           clientLanguage_ = other.clientLanguage_;
+          bitField0_ |= 0x00000010;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
+        this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
@@ -1360,19 +1278,60 @@ public final class WebChatProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        grpc.demo.java.webchat.proto.WebChatProto.ChatMessage parsedMessage = null;
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
         try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                input.readMessage(
+                    getChatRoomFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                message_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 24: {
+                timeGeneratedEpochMillis_ = input.readInt64();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 34: {
+                nickname_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                clientLanguage_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpc.demo.java.webchat.proto.WebChatProto.ChatMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
+          onChanged();
+        } // finally
         return this;
       }
+      private int bitField0_;
 
       private grpc.demo.java.webchat.proto.WebChatProto.ChatRoom chatRoom_;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -1386,7 +1345,7 @@ public final class WebChatProto {
        * @return Whether the chatRoom field is set.
        */
       public boolean hasChatRoom() {
-        return chatRoomBuilder_ != null || chatRoom_ != null;
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -1416,11 +1375,11 @@ public final class WebChatProto {
             throw new NullPointerException();
           }
           chatRoom_ = value;
-          onChanged();
         } else {
           chatRoomBuilder_.setMessage(value);
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -1434,11 +1393,11 @@ public final class WebChatProto {
           grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.Builder builderForValue) {
         if (chatRoomBuilder_ == null) {
           chatRoom_ = builderForValue.build();
-          onChanged();
         } else {
           chatRoomBuilder_.setMessage(builderForValue.build());
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -1450,17 +1409,18 @@ public final class WebChatProto {
        */
       public Builder mergeChatRoom(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom value) {
         if (chatRoomBuilder_ == null) {
-          if (chatRoom_ != null) {
-            chatRoom_ =
-              grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.newBuilder(chatRoom_).mergeFrom(value).buildPartial();
+          if (((bitField0_ & 0x00000001) != 0) &&
+            chatRoom_ != null &&
+            chatRoom_ != grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.getDefaultInstance()) {
+            getChatRoomBuilder().mergeFrom(value);
           } else {
             chatRoom_ = value;
           }
-          onChanged();
         } else {
           chatRoomBuilder_.mergeFrom(value);
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -1471,14 +1431,13 @@ public final class WebChatProto {
        * <code>.webchat.ChatRoom chatRoom = 1;</code>
        */
       public Builder clearChatRoom() {
-        if (chatRoomBuilder_ == null) {
-          chatRoom_ = null;
-          onChanged();
-        } else {
-          chatRoom_ = null;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        chatRoom_ = null;
+        if (chatRoomBuilder_ != null) {
+          chatRoomBuilder_.dispose();
           chatRoomBuilder_ = null;
         }
-
+        onChanged();
         return this;
       }
       /**
@@ -1489,7 +1448,7 @@ public final class WebChatProto {
        * <code>.webchat.ChatRoom chatRoom = 1;</code>
        */
       public grpc.demo.java.webchat.proto.WebChatProto.ChatRoom.Builder getChatRoomBuilder() {
-        
+        bitField0_ |= 0x00000001;
         onChanged();
         return getChatRoomFieldBuilder().getBuilder();
       }
@@ -1582,11 +1541,9 @@ public final class WebChatProto {
        */
       public Builder setMessage(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         message_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -1599,8 +1556,8 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder clearMessage() {
-        
         message_ = getDefaultInstance().getMessage();
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
@@ -1615,12 +1572,10 @@ public final class WebChatProto {
        */
       public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         message_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -1648,8 +1603,9 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder setTimeGeneratedEpochMillis(long value) {
-        
+
         timeGeneratedEpochMillis_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -1662,7 +1618,7 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder clearTimeGeneratedEpochMillis() {
-        
+        bitField0_ = (bitField0_ & ~0x00000004);
         timeGeneratedEpochMillis_ = 0L;
         onChanged();
         return this;
@@ -1721,11 +1677,9 @@ public final class WebChatProto {
        */
       public Builder setNickname(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         nickname_ = value;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -1738,8 +1692,8 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder clearNickname() {
-        
         nickname_ = getDefaultInstance().getNickname();
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
@@ -1754,12 +1708,10 @@ public final class WebChatProto {
        */
       public Builder setNicknameBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         nickname_ = value;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -1817,11 +1769,9 @@ public final class WebChatProto {
        */
       public Builder setClientLanguage(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         clientLanguage_ = value;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -1834,8 +1784,8 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder clearClientLanguage() {
-        
         clientLanguage_ = getDefaultInstance().getClientLanguage();
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
@@ -1850,12 +1800,10 @@ public final class WebChatProto {
        */
       public Builder setClientLanguageBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         clientLanguage_ = value;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -1892,7 +1840,18 @@ public final class WebChatProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ChatMessage(input, extensionRegistry);
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
       }
     };
 
@@ -1944,53 +1903,6 @@ public final class WebChatProto {
       return new SendReceipt();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private SendReceipt(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              sentSuccessfully_ = input.readBool();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return grpc.demo.java.webchat.proto.WebChatProto.internal_static_webchat_SendReceipt_descriptor;
@@ -2005,7 +1917,7 @@ public final class WebChatProto {
     }
 
     public static final int SENTSUCCESSFULLY_FIELD_NUMBER = 1;
-    private boolean sentSuccessfully_;
+    private boolean sentSuccessfully_ = false;
     /**
      * <code>bool sentSuccessfully = 1;</code>
      * @return The sentSuccessfully.
@@ -2032,7 +1944,7 @@ public final class WebChatProto {
       if (sentSuccessfully_ != false) {
         output.writeBool(1, sentSuccessfully_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
     @java.lang.Override
@@ -2045,7 +1957,7 @@ public final class WebChatProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, sentSuccessfully_);
       }
-      size += unknownFields.getSerializedSize();
+      size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
@@ -2062,7 +1974,7 @@ public final class WebChatProto {
 
       if (getSentSuccessfully()
           != other.getSentSuccessfully()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
@@ -2076,7 +1988,7 @@ public final class WebChatProto {
       hash = (37 * hash) + SENTSUCCESSFULLY_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getSentSuccessfully());
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
@@ -2125,11 +2037,13 @@ public final class WebChatProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static grpc.demo.java.webchat.proto.WebChatProto.SendReceipt parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static grpc.demo.java.webchat.proto.WebChatProto.SendReceipt parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2193,24 +2107,19 @@ public final class WebChatProto {
 
       // Construct using grpc.demo.java.webchat.proto.WebChatProto.SendReceipt.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         sentSuccessfully_ = false;
-
         return this;
       }
 
@@ -2237,9 +2146,16 @@ public final class WebChatProto {
       @java.lang.Override
       public grpc.demo.java.webchat.proto.WebChatProto.SendReceipt buildPartial() {
         grpc.demo.java.webchat.proto.WebChatProto.SendReceipt result = new grpc.demo.java.webchat.proto.WebChatProto.SendReceipt(this);
-        result.sentSuccessfully_ = sentSuccessfully_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(grpc.demo.java.webchat.proto.WebChatProto.SendReceipt result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.sentSuccessfully_ = sentSuccessfully_;
+        }
       }
 
       @java.lang.Override
@@ -2289,7 +2205,7 @@ public final class WebChatProto {
         if (other.getSentSuccessfully() != false) {
           setSentSuccessfully(other.getSentSuccessfully());
         }
-        this.mergeUnknownFields(other.unknownFields);
+        this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
@@ -2304,19 +2220,38 @@ public final class WebChatProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        grpc.demo.java.webchat.proto.WebChatProto.SendReceipt parsedMessage = null;
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
         try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                sentSuccessfully_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpc.demo.java.webchat.proto.WebChatProto.SendReceipt) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
+          onChanged();
+        } // finally
         return this;
       }
+      private int bitField0_;
 
       private boolean sentSuccessfully_ ;
       /**
@@ -2333,8 +2268,9 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder setSentSuccessfully(boolean value) {
-        
+
         sentSuccessfully_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -2343,7 +2279,7 @@ public final class WebChatProto {
        * @return This builder for chaining.
        */
       public Builder clearSentSuccessfully() {
-        
+        bitField0_ = (bitField0_ & ~0x00000001);
         sentSuccessfully_ = false;
         onChanged();
         return this;
@@ -2381,7 +2317,18 @@ public final class WebChatProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new SendReceipt(input, extensionRegistry);
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
       }
     };
 

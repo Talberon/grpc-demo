@@ -85,64 +85,6 @@ public final class MovieCatalogProto {
       return new MovieItem();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private MovieItem(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 17: {
-
-              price_ = input.readDouble();
-              break;
-            }
-            case 24: {
-
-              inStock_ = input.readBool();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return grpc.demo.java.moviecatalog.proto.MovieCatalogProto.internal_static_moviecatalog_MovieItem_descriptor;
@@ -157,7 +99,8 @@ public final class MovieCatalogProto {
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object name_ = "";
     /**
      * <pre>
      *The name of the movie
@@ -203,7 +146,7 @@ public final class MovieCatalogProto {
     }
 
     public static final int PRICE_FIELD_NUMBER = 2;
-    private double price_;
+    private double price_ = 0D;
     /**
      * <pre>
      *The price of the movie
@@ -218,7 +161,7 @@ public final class MovieCatalogProto {
     }
 
     public static final int INSTOCK_FIELD_NUMBER = 3;
-    private boolean inStock_;
+    private boolean inStock_ = false;
     /**
      * <pre>
      *Is this movie currently in stock?
@@ -246,16 +189,16 @@ public final class MovieCatalogProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      if (price_ != 0D) {
+      if (java.lang.Double.doubleToRawLongBits(price_) != 0) {
         output.writeDouble(2, price_);
       }
       if (inStock_ != false) {
         output.writeBool(3, inStock_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
     @java.lang.Override
@@ -264,10 +207,10 @@ public final class MovieCatalogProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!getNameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      if (price_ != 0D) {
+      if (java.lang.Double.doubleToRawLongBits(price_) != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(2, price_);
       }
@@ -275,7 +218,7 @@ public final class MovieCatalogProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(3, inStock_);
       }
-      size += unknownFields.getSerializedSize();
+      size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
@@ -297,7 +240,7 @@ public final class MovieCatalogProto {
               other.getPrice())) return false;
       if (getInStock()
           != other.getInStock()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
@@ -316,7 +259,7 @@ public final class MovieCatalogProto {
       hash = (37 * hash) + INSTOCK_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getInStock());
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
@@ -365,11 +308,13 @@ public final class MovieCatalogProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -437,28 +382,21 @@ public final class MovieCatalogProto {
 
       // Construct using grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         name_ = "";
-
         price_ = 0D;
-
         inStock_ = false;
-
         return this;
       }
 
@@ -485,11 +423,22 @@ public final class MovieCatalogProto {
       @java.lang.Override
       public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem buildPartial() {
         grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem result = new grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem(this);
-        result.name_ = name_;
-        result.price_ = price_;
-        result.inStock_ = inStock_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.name_ = name_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.price_ = price_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.inStock_ = inStock_;
+        }
       }
 
       @java.lang.Override
@@ -538,6 +487,7 @@ public final class MovieCatalogProto {
         if (other == grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (other.getPrice() != 0D) {
@@ -546,7 +496,7 @@ public final class MovieCatalogProto {
         if (other.getInStock() != false) {
           setInStock(other.getInStock());
         }
-        this.mergeUnknownFields(other.unknownFields);
+        this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
@@ -561,19 +511,48 @@ public final class MovieCatalogProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem parsedMessage = null;
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
         try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                name_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 17: {
+                price_ = input.readDouble();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 17
+              case 24: {
+                inStock_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
+          onChanged();
+        } // finally
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object name_ = "";
       /**
@@ -628,11 +607,9 @@ public final class MovieCatalogProto {
        */
       public Builder setName(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         name_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -645,8 +622,8 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder clearName() {
-        
         name_ = getDefaultInstance().getName();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -661,12 +638,10 @@ public final class MovieCatalogProto {
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         name_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -694,8 +669,9 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder setPrice(double value) {
-        
+
         price_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -708,7 +684,7 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder clearPrice() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         price_ = 0D;
         onChanged();
         return this;
@@ -737,8 +713,9 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder setInStock(boolean value) {
-        
+
         inStock_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -751,7 +728,7 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder clearInStock() {
-        
+        bitField0_ = (bitField0_ & ~0x00000004);
         inStock_ = false;
         onChanged();
         return this;
@@ -789,7 +766,18 @@ public final class MovieCatalogProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MovieItem(input, extensionRegistry);
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
       }
     };
 
@@ -859,58 +847,6 @@ public final class MovieCatalogProto {
       return new AddMovieResponse();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private AddMovieResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              wasSaved_ = input.readBool();
-              break;
-            }
-            case 16: {
-
-              itemId_ = input.readInt32();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return grpc.demo.java.moviecatalog.proto.MovieCatalogProto.internal_static_moviecatalog_AddMovieResponse_descriptor;
@@ -925,7 +861,7 @@ public final class MovieCatalogProto {
     }
 
     public static final int WASSAVED_FIELD_NUMBER = 1;
-    private boolean wasSaved_;
+    private boolean wasSaved_ = false;
     /**
      * <pre>
      *Was the item saved to the datastore?
@@ -940,7 +876,7 @@ public final class MovieCatalogProto {
     }
 
     public static final int ITEMID_FIELD_NUMBER = 2;
-    private int itemId_;
+    private int itemId_ = 0;
     /**
      * <pre>
      *What is the id for the given item?
@@ -974,7 +910,7 @@ public final class MovieCatalogProto {
       if (itemId_ != 0) {
         output.writeInt32(2, itemId_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
     @java.lang.Override
@@ -991,7 +927,7 @@ public final class MovieCatalogProto {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, itemId_);
       }
-      size += unknownFields.getSerializedSize();
+      size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
@@ -1010,7 +946,7 @@ public final class MovieCatalogProto {
           != other.getWasSaved()) return false;
       if (getItemId()
           != other.getItemId()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
@@ -1026,7 +962,7 @@ public final class MovieCatalogProto {
           getWasSaved());
       hash = (37 * hash) + ITEMID_FIELD_NUMBER;
       hash = (53 * hash) + getItemId();
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
@@ -1075,11 +1011,13 @@ public final class MovieCatalogProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1147,26 +1085,20 @@ public final class MovieCatalogProto {
 
       // Construct using grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         wasSaved_ = false;
-
         itemId_ = 0;
-
         return this;
       }
 
@@ -1193,10 +1125,19 @@ public final class MovieCatalogProto {
       @java.lang.Override
       public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse buildPartial() {
         grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse result = new grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse(this);
-        result.wasSaved_ = wasSaved_;
-        result.itemId_ = itemId_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.wasSaved_ = wasSaved_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.itemId_ = itemId_;
+        }
       }
 
       @java.lang.Override
@@ -1249,7 +1190,7 @@ public final class MovieCatalogProto {
         if (other.getItemId() != 0) {
           setItemId(other.getItemId());
         }
-        this.mergeUnknownFields(other.unknownFields);
+        this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
@@ -1264,19 +1205,43 @@ public final class MovieCatalogProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse parsedMessage = null;
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
         try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                wasSaved_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 16: {
+                itemId_ = input.readInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
+          onChanged();
+        } // finally
         return this;
       }
+      private int bitField0_;
 
       private boolean wasSaved_ ;
       /**
@@ -1301,8 +1266,9 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder setWasSaved(boolean value) {
-        
+
         wasSaved_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -1315,7 +1281,7 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder clearWasSaved() {
-        
+        bitField0_ = (bitField0_ & ~0x00000001);
         wasSaved_ = false;
         onChanged();
         return this;
@@ -1344,8 +1310,9 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder setItemId(int value) {
-        
+
         itemId_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -1358,7 +1325,7 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder clearItemId() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         itemId_ = 0;
         onChanged();
         return this;
@@ -1396,7 +1363,18 @@ public final class MovieCatalogProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new AddMovieResponse(input, extensionRegistry);
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
       }
     };
 
@@ -1455,54 +1433,6 @@ public final class MovieCatalogProto {
       return new FetchMovieRequest();
     }
 
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private FetchMovieRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return grpc.demo.java.moviecatalog.proto.MovieCatalogProto.internal_static_moviecatalog_FetchMovieRequest_descriptor;
@@ -1517,7 +1447,8 @@ public final class MovieCatalogProto {
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object name_ = "";
     /**
      * <code>string name = 1;</code>
      * @return The name.
@@ -1568,10 +1499,10 @@ public final class MovieCatalogProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      unknownFields.writeTo(output);
+      getUnknownFields().writeTo(output);
     }
 
     @java.lang.Override
@@ -1580,10 +1511,10 @@ public final class MovieCatalogProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!getNameBytes().isEmpty()) {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      size += unknownFields.getSerializedSize();
+      size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
     }
@@ -1600,7 +1531,7 @@ public final class MovieCatalogProto {
 
       if (!getName()
           .equals(other.getName())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
 
@@ -1613,7 +1544,7 @@ public final class MovieCatalogProto {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
@@ -1662,11 +1593,13 @@ public final class MovieCatalogProto {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
+
     public static grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
+
     public static grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1730,24 +1663,19 @@ public final class MovieCatalogProto {
 
       // Construct using grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest.newBuilder()
       private Builder() {
-        maybeForceBuilderInitialization();
+
       }
 
       private Builder(
           com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
+
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         name_ = "";
-
         return this;
       }
 
@@ -1774,9 +1702,16 @@ public final class MovieCatalogProto {
       @java.lang.Override
       public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest buildPartial() {
         grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest result = new grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest(this);
-        result.name_ = name_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.name_ = name_;
+        }
       }
 
       @java.lang.Override
@@ -1825,9 +1760,10 @@ public final class MovieCatalogProto {
         if (other == grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
-        this.mergeUnknownFields(other.unknownFields);
+        this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
       }
@@ -1842,19 +1778,38 @@ public final class MovieCatalogProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest parsedMessage = null;
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
         try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                name_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
+          onChanged();
+        } // finally
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object name_ = "";
       /**
@@ -1897,11 +1852,9 @@ public final class MovieCatalogProto {
        */
       public Builder setName(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         name_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -1910,8 +1863,8 @@ public final class MovieCatalogProto {
        * @return This builder for chaining.
        */
       public Builder clearName() {
-        
         name_ = getDefaultInstance().getName();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -1922,12 +1875,10 @@ public final class MovieCatalogProto {
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         name_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -1964,7 +1915,18 @@ public final class MovieCatalogProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FetchMovieRequest(input, extensionRegistry);
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
       }
     };
 
