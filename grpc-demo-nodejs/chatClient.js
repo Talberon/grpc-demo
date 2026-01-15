@@ -1,74 +1,96 @@
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
+import readline from 'readline';
+import grpc from '@grpc/grpc-js';
+import protoLoader from '@grpc/proto-loader';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Recreate __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const PROTO_PATH = path.resolve(__dirname, '../protobuf/webchat-service.proto');
+
+// readline interface
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
 });
 
-const PROTO_PATH = '../protobuf/webchat-service.proto';
-const grpc = require('grpc');
-const protoLoader = require('@grpc/proto-loader');
-// Suggested options for similarity to existing grpc.load behavior
-const packageDefinition = protoLoader.loadSync(
-    PROTO_PATH,
-    {
-        keepCase: true,
-        longs: String,
-        enums: String,
-        defaults: true,
-        oneofs: true
-    });
-const chatClientProto = grpc.loadPackageDefinition(packageDefinition).webchat;
+// Load protobuf definition
+const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true
+});
+
+// Load gRPC package
+const proto = grpc.loadPackageDefinition(packageDefinition);
+const chatClientProto = proto.webchat;
 
 function main() {
-    //Set up the client
-    let client = new chatClientProto.WebChat('localhost:9090', grpc.credentials.createInsecure());
+  const client = new chatClientProto.WebChat(
+    'localhost:9090',
+    grpc.credentials.createInsecure()
+  );
 
-    let chatRoom = {
-        chatRoomId: "My Cool Room For Cool People"
-    };
+  const chatRoom = {
+    chatRoomId: 'My Cool Room For Cool People'
+  };
 
-    connectToChatRoom(client, chatRoom);
-
-    //Prompt the user for input on the command line for sending messages
-    var recursiveQuestions = function () {
-        readline.question('Send a message: ', text => {
-            sendMessage(chatRoom, text, client);
-            recursiveQuestions();
-        });
-    }
-
-    recursiveQuestions();
+  connectToChatRoom(client, chatRoom);
+  askQuestions(client, chatRoom);
 }
 
-main();
+function askQuestions(client, chatRoom) {
+  rl.question('Send a message: ', text => {
+    sendMessage(chatRoom, text, client);
+    askQuestions(client, chatRoom);
+  });
+}
 
 function sendMessage(chatRoom, text, client) {
-    let message = {
-        "chatRoom": chatRoom,
-        "message": text,
-        "timeGeneratedEpochMillis": Date.now(),
-        "nickname": "Deborah",
-        "clientLanguage": "Javascript"
-    };
-    client.sendMessage(message, function (receipt) {
-        console.log(`Message ${JSON.stringify(message)} was sent successfully?: ${receipt}`);
-    });
+  const message = {
+    chatRoom,
+    message: text,
+    timeGeneratedEpochMillis: Date.now(),
+    nickname: 'Deborah',
+    clientLanguage: 'Javascript'
+  };
+
+  client.sendMessage(message, (err, receipt) => {
+    if (err) {
+      console.error('RPC error:', err);
+      return;
+    }
+    console.log(
+      `Message ${JSON.stringify(message)} was sent successfully?: ${receipt}`
+    );
+  });
 }
 
 function connectToChatRoom(client, chatRoom) {
-    let chatStream = client.joinChatRoom(chatRoom);
+  const chatStream = client.joinChatRoom(chatRoom);
 
-    console.log("Connected to web chat!", chatRoom);
+  console.log('Connected to web chat!', chatRoom);
 
-    chatStream.on('data', function (feature) {
-        console.log("Received message: ", feature);
-    });
-    chatStream.on('end', function () {
-        console.log("The server has finished sending");
-    });
-    chatStream.on('error', function (e) {
-        console.log("An error has occurred and the stream has been closed");
-    });
-    chatStream.on('status', function (status) {
-        console.log("process status");
-    });
+  chatStream.on('data', feature => {
+    console.log('Received message:', feature);
+  });
+
+  chatStream.on('end', () => {
+    console.log('The server has finished sending');
+    rl.close();
+  });
+
+  chatStream.on('error', err => {
+    console.error('Stream error:', err);
+  });
+
+  chatStream.on('status', status => {
+    console.log('Stream status:', status);
+  });
 }
+
+main();

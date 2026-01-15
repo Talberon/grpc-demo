@@ -4,15 +4,12 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
  */
-@javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.56.1)",
-    comments = "Source: webchat-service.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class WebChatGrpc {
 
   private WebChatGrpc() {}
 
-  public static final String SERVICE_NAME = "webchat.WebChat";
+  public static final java.lang.String SERVICE_NAME = "webchat.WebChat";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<grpc.demo.java.webchat.proto.WebChatProto.ChatRoom,
@@ -151,6 +148,21 @@ public final class WebChatGrpc {
         }
       };
     return WebChatStub.newStub(factory, channel);
+  }
+
+  /**
+   * Creates a new blocking-style stub that supports all types of calls on the service
+   */
+  public static WebChatBlockingV2Stub newBlockingV2Stub(
+      io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<WebChatBlockingV2Stub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<WebChatBlockingV2Stub>() {
+        @java.lang.Override
+        public WebChatBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new WebChatBlockingV2Stub(channel, callOptions);
+        }
+      };
+    return WebChatBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -302,6 +314,69 @@ public final class WebChatGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service WebChat.
+   */
+  public static final class WebChatBlockingV2Stub
+      extends io.grpc.stub.AbstractBlockingStub<WebChatBlockingV2Stub> {
+    private WebChatBlockingV2Stub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      super(channel, callOptions);
+    }
+
+    @java.lang.Override
+    protected WebChatBlockingV2Stub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      return new WebChatBlockingV2Stub(channel, callOptions);
+    }
+
+    /**
+     * <pre>
+     *Server Streaming
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<?, grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>
+        joinChatRoom(grpc.demo.java.webchat.proto.WebChatProto.ChatRoom request) {
+      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
+          getChannel(), getJoinChatRoomMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     *Client-side Streaming
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage, grpc.demo.java.webchat.proto.WebChatProto.SendReceipt>
+        streamMessagesToServer() {
+      return io.grpc.stub.ClientCalls.blockingClientStreamingCall(
+          getChannel(), getStreamMessagesToServerMethod(), getCallOptions());
+    }
+
+    /**
+     * <pre>
+     *Bidirectional Streaming
+     * </pre>
+     */
+    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
+    public io.grpc.stub.BlockingClientCall<grpc.demo.java.webchat.proto.WebChatProto.ChatMessage, grpc.demo.java.webchat.proto.WebChatProto.ChatMessage>
+        joinStreamSession() {
+      return io.grpc.stub.ClientCalls.blockingBidiStreamingCall(
+          getChannel(), getJoinStreamSessionMethod(), getCallOptions());
+    }
+
+    /**
+     * <pre>
+     *Unary Call
+     * </pre>
+     */
+    public grpc.demo.java.webchat.proto.WebChatProto.SendReceipt sendMessage(grpc.demo.java.webchat.proto.WebChatProto.ChatMessage request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getSendMessageMethod(), getCallOptions(), request);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do limited synchronous rpc calls to service WebChat.
    */
   public static final class WebChatBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<WebChatBlockingStub> {
@@ -474,9 +549,9 @@ public final class WebChatGrpc {
   private static final class WebChatMethodDescriptorSupplier
       extends WebChatBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
-    private final String methodName;
+    private final java.lang.String methodName;
 
-    WebChatMethodDescriptorSupplier(String methodName) {
+    WebChatMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 

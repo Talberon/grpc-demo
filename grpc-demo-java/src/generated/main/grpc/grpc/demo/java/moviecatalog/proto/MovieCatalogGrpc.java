@@ -7,15 +7,12 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * The movie service definition.
  * </pre>
  */
-@javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.56.1)",
-    comments = "Source: movie-service.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class MovieCatalogGrpc {
 
   private MovieCatalogGrpc() {}
 
-  public static final String SERVICE_NAME = "moviecatalog.MovieCatalog";
+  public static final java.lang.String SERVICE_NAME = "moviecatalog.MovieCatalog";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem,
@@ -92,6 +89,21 @@ public final class MovieCatalogGrpc {
         }
       };
     return MovieCatalogStub.newStub(factory, channel);
+  }
+
+  /**
+   * Creates a new blocking-style stub that supports all types of calls on the service
+   */
+  public static MovieCatalogBlockingV2Stub newBlockingV2Stub(
+      io.grpc.Channel channel) {
+    io.grpc.stub.AbstractStub.StubFactory<MovieCatalogBlockingV2Stub> factory =
+      new io.grpc.stub.AbstractStub.StubFactory<MovieCatalogBlockingV2Stub>() {
+        @java.lang.Override
+        public MovieCatalogBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+          return new MovieCatalogBlockingV2Stub(channel, callOptions);
+        }
+      };
+    return MovieCatalogBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -210,6 +222,46 @@ public final class MovieCatalogGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service MovieCatalog.
+   * <pre>
+   * The movie service definition.
+   * </pre>
+   */
+  public static final class MovieCatalogBlockingV2Stub
+      extends io.grpc.stub.AbstractBlockingStub<MovieCatalogBlockingV2Stub> {
+    private MovieCatalogBlockingV2Stub(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      super(channel, callOptions);
+    }
+
+    @java.lang.Override
+    protected MovieCatalogBlockingV2Stub build(
+        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
+      return new MovieCatalogBlockingV2Stub(channel, callOptions);
+    }
+
+    /**
+     * <pre>
+     * Adds a movie to the repository
+     * </pre>
+     */
+    public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.AddMovieResponse saveNewMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getSaveNewMovieMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     *Retrieves a movie from the repository
+     * </pre>
+     */
+    public grpc.demo.java.moviecatalog.proto.MovieCatalogProto.MovieItem fetchExistingMovie(grpc.demo.java.moviecatalog.proto.MovieCatalogProto.FetchMovieRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getFetchExistingMovieMethod(), getCallOptions(), request);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do limited synchronous rpc calls to service MovieCatalog.
    * <pre>
    * The movie service definition.
    * </pre>
@@ -376,9 +428,9 @@ public final class MovieCatalogGrpc {
   private static final class MovieCatalogMethodDescriptorSupplier
       extends MovieCatalogBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
-    private final String methodName;
+    private final java.lang.String methodName;
 
-    MovieCatalogMethodDescriptorSupplier(String methodName) {
+    MovieCatalogMethodDescriptorSupplier(java.lang.String methodName) {
       this.methodName = methodName;
     }
 
