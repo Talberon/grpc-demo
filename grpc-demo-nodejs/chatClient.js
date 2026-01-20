@@ -76,7 +76,7 @@ function connectToChatRoom(client, chatRoom) {
   console.log('Connected to web chat!', chatRoom);
 
   chatStream.on('data', feature => {
-    console.log('Received message:', feature);
+    console.log(`[${new Date(parseInt(feature.timeGeneratedEpochMillis)).toISOString()}] (${feature.clientLanguage}) ${feature.nickname} says: ${feature.message}`);
   });
 
   chatStream.on('end', () => {

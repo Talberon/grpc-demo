@@ -30,7 +30,8 @@ public class WebChatClient {
     StartChatRoomSession(client, chatRoom);
     SendMessagesToRoom(client, chatRoom);
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+    BufferedReader reader = new BufferedReader(inputStreamReader);
     System.out.println("Press ENTER to shut down...");
     reader.readLine(); //Block shutdown until we enter something
 
