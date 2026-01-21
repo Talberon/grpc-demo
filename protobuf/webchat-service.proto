@@ -2,6 +2,7 @@ syntax = "proto3";
 
 option java_package = "grpc.demo.java.webchat.proto";
 option java_outer_classname = "WebChatProto";
+option go_package = "webchatpb/";
 
 package webchat;
 

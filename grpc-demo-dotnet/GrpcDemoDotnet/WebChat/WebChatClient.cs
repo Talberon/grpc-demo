@@ -85,7 +85,7 @@ namespace grpc_demo_dotnet.WebChat
                     ChatRoom = chatRoom,
                     ClientLanguage = "C# (Streamed)",
                     Message = "I was streamed by a client (1)!",
-                    Nickname = "Streamer",
+                    Nickname = "Bob",
                     TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                 },
                 new ChatMessage
@@ -93,7 +93,7 @@ namespace grpc_demo_dotnet.WebChat
                     ChatRoom = chatRoom,
                     ClientLanguage = "C# (Streamed)",
                     Message = "I was streamed by a client (2)!",
-                    Nickname = "Streamer",
+                    Nickname = "Bob",
                     TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                 },
                 new ChatMessage
@@ -101,7 +101,7 @@ namespace grpc_demo_dotnet.WebChat
                     ChatRoom = chatRoom,
                     ClientLanguage = "C# (Streamed)",
                     Message = "I was streamed by a client (3)!",
-                    Nickname = "Streamer",
+                    Nickname = "Bob",
                     TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                 }]);
 
