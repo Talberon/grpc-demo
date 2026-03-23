@@ -5,7 +5,7 @@
   "description": "A simple gRPC client for Node.js",
   "main": "index.js",
   "scripts": {
-    "start:chat": "node chatClient.js",
+    "start:chat": "tsx chatClient.jsx",
     "start:movie": "node movieClient.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +21,8 @@
     "minimist": "^1.2.6",
     "react": "^19.2.4",
     "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   }
 }

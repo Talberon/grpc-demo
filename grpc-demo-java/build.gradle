@@ -11,7 +11,7 @@ java {
     }
 }
 
-def grpcVersion = '1.78.0'
+def grpcVersion = '1.79.0'
 def protobufVersion = '4.33.4'
 
 repositories {
@@ -38,7 +38,7 @@ dependencies {
 
 application {
     // Use mainClass property
-    mainClass = 'grpc.demo.java.App'
+    mainClass = 'grpc.demo.java.webchat.WebChatClient'
 }
 
 test {

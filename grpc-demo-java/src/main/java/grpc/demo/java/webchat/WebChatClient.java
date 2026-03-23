@@ -5,6 +5,7 @@ import grpc.demo.java.webchat.proto.WebChatGrpc.WebChatBlockingStub;
 import grpc.demo.java.webchat.proto.WebChatProto.ChatMessage;
 import grpc.demo.java.webchat.proto.WebChatProto.ChatRoom;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,8 +40,14 @@ public class WebChatClient {
     System.out.println("Press ENTER to shut down...");
     reader.readLine();
 
-    channel.shutdownNow();
     System.out.println("Shutting down...");
+    roomThread.interrupt();
+    try {
+      roomThread.join();
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+    }
+    channel.shutdownNow();
   }
 
   private static void StartChatRoomSession(WebChatBlockingStub client, ChatRoom chatRoom) {
@@ -49,24 +56,26 @@ public class WebChatClient {
       System.out.println("Joining chat room: " + chatRoom.getChatRoomId());
       var session = client.joinChatRoom(chatRoom);
 
-      while (true) {
-        if (session.hasNext()) {
-          // Print the next message received from the server to the console.
-          var nextMessage = session.next();
-          System.out.println(String.format(
-              "[%s] %s (%s): %s",
-              nextMessage.getChatRoom().getChatRoomId(),
-              nextMessage.getNickname(),
-              nextMessage.getClientLanguage(),
-              nextMessage.getMessage()
-          ));
-        }
-
-        // Sleep for a little bit so we don't hammer the CPU.
+      while (!Thread.currentThread().isInterrupted()) {
         try {
+          if (session.hasNext()) {
+            // Print the next message received from the server to the console.
+            var nextMessage = session.next();
+            System.out.println(String.format(
+                "[%s] %s (%s): %s",
+                nextMessage.getChatRoom().getChatRoomId(),
+                nextMessage.getNickname(),
+                nextMessage.getClientLanguage(),
+                nextMessage.getMessage()
+            ));
+          }
+
+          // Sleep for a little bit so we don't hammer the CPU.
           Thread.sleep(200);
         } catch (InterruptedException e) {
-          e.printStackTrace();
+          Thread.currentThread().interrupt();
+        } catch (StatusRuntimeException e) {
+          // Channel was shut down, exit cleanly.
           return;
         }
       }
