@@ -15,8 +15,8 @@ public class WebChatClient {
 
   private static Thread roomThread;
 
-  public static void main(String[] args) throws IOException {
-    //Connect to the server
+  void main() throws IOException {
+    // Connect to the server.
     var channel = ManagedChannelBuilder
         .forAddress("localhost", 9090)
         .usePlaintext() //No encryption
@@ -24,28 +24,34 @@ public class WebChatClient {
     var client = WebChatGrpc.newBlockingStub(channel); //Synchronous calls to the service
     System.out.println("Started client on " + channel.authority() + "...");
 
-    //Define the chat room we want to join
+    // Define the chat room we want to join.
     var chatRoom = ChatRoom.newBuilder().setChatRoomId("My Cool Room For Cool People").build();
 
+    // Start the room.
     StartChatRoomSession(client, chatRoom);
+
+    // Send some messages after we connect (no user-input; just hard-coded samples).
     SendMessagesToRoom(client, chatRoom);
 
+    // Block shutdown until we enter something.
     InputStreamReader inputStreamReader = new InputStreamReader(System.in);
     BufferedReader reader = new BufferedReader(inputStreamReader);
     System.out.println("Press ENTER to shut down...");
-    reader.readLine(); //Block shutdown until we enter something
+    reader.readLine();
 
     channel.shutdownNow();
     System.out.println("Shutting down...");
   }
 
   private static void StartChatRoomSession(WebChatBlockingStub client, ChatRoom chatRoom) {
+    // Run this room async on another thread.
     roomThread = new Thread(() -> {
       System.out.println("Joining chat room: " + chatRoom.getChatRoomId());
       var session = client.joinChatRoom(chatRoom);
 
       while (true) {
         if (session.hasNext()) {
+          // Print the next message received from the server to the console.
           var nextMessage = session.next();
           System.out.println(String.format(
               "[%s] %s (%s): %s",
@@ -55,6 +61,8 @@ public class WebChatClient {
               nextMessage.getMessage()
           ));
         }
+
+        // Sleep for a little bit so we don't hammer the CPU.
         try {
           Thread.sleep(200);
         } catch (InterruptedException e) {

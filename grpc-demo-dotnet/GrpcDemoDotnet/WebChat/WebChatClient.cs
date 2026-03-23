@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using Webchat;
 
-namespace grpc_demo_dotnet.WebChat
+namespace GrpcDemoDotnet.WebChat
 {
     public static class WebChatClient
     {

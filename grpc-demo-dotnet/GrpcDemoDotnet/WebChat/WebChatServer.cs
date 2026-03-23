@@ -1,7 +1,7 @@
 using System;
 using Grpc.Core;
 
-namespace grpc_demo_dotnet.WebChat
+namespace GrpcDemoDotnet.WebChat
 {
     public static class WebChatServer
     {
@@ -10,7 +10,7 @@ namespace grpc_demo_dotnet.WebChat
             Console.WriteLine("Starting gRPC client...");
             const int port = 9090;
 
-            var server = new Server
+            var server = new Grpc.Core.Server
             {
                 Services = {Webchat.WebChat.BindService(new WebChatServiceImpl())},
                 Ports = {new ServerPort("localhost", port, ServerCredentials.Insecure)}

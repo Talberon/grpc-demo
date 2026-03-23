@@ -1,7 +1,7 @@
 using System;
 using Webchat;
 
-namespace grpc_demo_dotnet.WebChat.Util
+namespace GrpcDemoDotnet.WebChat.Util
 {
     public class ChatRoomNotFoundException : Exception
     {

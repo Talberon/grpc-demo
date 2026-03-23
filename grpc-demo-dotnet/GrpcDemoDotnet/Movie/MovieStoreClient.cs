@@ -2,7 +2,7 @@ using System;
 using Grpc.Core;
 using Moviecatalog;
 
-namespace grpc_demo_dotnet.Movie
+namespace GrpcDemoDotnet.Movie
 {
     public class MovieStoreClient
     {

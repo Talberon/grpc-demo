@@ -1,6 +1,6 @@
-﻿using grpc_demo_dotnet.WebChat;
+﻿using GrpcDemoDotnet.WebChat;
 
-namespace grpc_demo_dotnet
+namespace GrpcDemoDotnet
 {
     internal static class Program
     {

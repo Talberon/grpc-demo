@@ -3,6 +3,7 @@ import grpc from '@grpc/grpc-js';
 import protoLoader from '@grpc/proto-loader';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { promisify } from 'util';
 
 // Recreate __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -29,48 +30,41 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 const proto = grpc.loadPackageDefinition(packageDefinition);
 const chatClientProto = proto.webchat;
 
-function main() {
+async function main() {
   const client = new chatClientProto.WebChat(
     'localhost:9090',
     grpc.credentials.createInsecure()
   );
+  const sendMessage = promisify(client.sendMessage.bind(client));
 
   const chatRoom = {
     chatRoomId: 'My Cool Room For Cool People'
   };
 
-  connectToChatRoom(client, chatRoom);
-  askQuestions(client, chatRoom);
+  await connectToChatRoom(client, chatRoom);
+  askQuestions(sendMessage, chatRoom);
 }
 
-function askQuestions(client, chatRoom) {
-  rl.question('Send a message: ', text => {
-    sendMessage(chatRoom, text, client);
-    askQuestions(client, chatRoom);
-  });
-}
-
-function sendMessage(chatRoom, text, client) {
-  const message = {
-    chatRoom,
-    message: text,
-    timeGeneratedEpochMillis: Date.now(),
-    nickname: 'Deborah',
-    clientLanguage: 'Javascript'
-  };
-
-  client.sendMessage(message, (err, receipt) => {
-    if (err) {
+function askQuestions(sendMessage, chatRoom) {
+  rl.question('Send a message: ', async text => {
+    try {
+      const message = {
+        chatRoom,
+        message: text,
+        timeGeneratedEpochMillis: Date.now(),
+        nickname: 'Deborah',
+        clientLanguage: 'Javascript'
+      };
+      const receipt = await sendMessage(message);
+      console.log(`Message ${JSON.stringify(message)} was sent successfully?: ${receipt}`);
+    } catch (err) {
       console.error('RPC error:', err);
-      return;
     }
-    console.log(
-      `Message ${JSON.stringify(message)} was sent successfully?: ${receipt}`
-    );
+    askQuestions(sendMessage, chatRoom);
   });
 }
 
-function connectToChatRoom(client, chatRoom) {
+async function connectToChatRoom(client, chatRoom) {
   const chatStream = client.joinChatRoom(chatRoom);
 
   console.log('Connected to web chat!', chatRoom);
