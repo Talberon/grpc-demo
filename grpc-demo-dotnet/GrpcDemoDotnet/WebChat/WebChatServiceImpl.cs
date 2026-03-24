@@ -7,35 +7,36 @@ using Webchat;
 
 namespace GrpcDemoDotnet.WebChat
 {
+    //Inherit from the Proto-generated gRPC class so we can define the methods
     public class WebChatServiceImpl : Webchat.WebChat.WebChatBase
     {
         private static readonly ChatRoomHub ChatRoomHub = new();
 
         //Unary call; sends a single message to a specified room
-        public override async Task<SendReceipt> SendMessage(ChatMessage message, ServerCallContext context)
+        public override async Task<SendReceipt> SendMessage(ChatMessage request, ServerCallContext context)
         {
-            Console.WriteLine($"[(Unary) SENDING]: {message}");
-            await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
+            Console.WriteLine($"[(Unary) RECEIVING]: {request}");
+            await ChatRoomHub.PublishAsync(request.ChatRoom.ChatRoomId, request, context.CancellationToken);
 
             return new SendReceipt { SentSuccessfully = true };
         }
 
-        //TODO Handle if messages are edited (if we add that functionality)
         //Server-side streaming; sends stream of messages to the client as they are added
         public override async Task JoinChatRoom(
-            ChatRoom chatRoom,
+            ChatRoom request,
             IServerStreamWriter<ChatMessage> responseStream,
             ServerCallContext context
         )
         {
             // Listen for new messages in the room
-            ChannelReader<ChatMessage> reader = ChatRoomHub.Subscribe(chatRoom.ChatRoomId);
+            ChannelReader<ChatMessage> reader = ChatRoomHub.Subscribe(request.ChatRoomId);
             await foreach (ChatMessage message in reader.ReadAllAsync(context.CancellationToken))
             {
                 await responseStream.WriteAsync(message);
             }
         }
 
+        //Client-side streaming; sends stream of messages to the server as they are added
         public override async Task<SendReceipt> StreamMessagesToServer(
             IAsyncStreamReader<ChatMessage> requestStream,
             ServerCallContext context
@@ -52,6 +53,7 @@ namespace GrpcDemoDotnet.WebChat
             return new SendReceipt { SentSuccessfully = true };
         }
 
+        //Bidirectional streaming; two streams open between client and server for communication
         public override async Task JoinStreamSession(
             IAsyncStreamReader<ChatMessage> requestStream,
             IServerStreamWriter<ChatMessage> responseStream,

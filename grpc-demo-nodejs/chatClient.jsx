@@ -6,13 +6,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { promisify } from "util";
 
-// Recreate __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PROTO_PATH = path.resolve(__dirname, "../protobuf/webchat-service.proto");
-
 // Load protobuf definition
+const PROTO_PATH = path.resolve(__dirname, "../protobuf/webchat-service.proto");
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,
@@ -27,13 +25,17 @@ const chatClientProto = proto.webchat;
 
 const chatRoom = { chatRoomId: "My Cool Room For Cool People" };
 
+// Connect to the gRPC server
 const client = new chatClientProto.WebChat(
   "localhost:9090",
-  grpc.credentials.createInsecure(),
+  grpc.credentials.createInsecure(), // We're using insecure credentials for local development
 );
 const sendMessage = promisify(client.sendMessage.bind(client));
+
+// Open the bidirectional stream for sending and receiving messages
 const chatStream = client.joinChatRoom(chatRoom);
 
+// In-memory message ID generator for rendering purposes
 let nextId = 1;
 const newMessage = (text) => ({ id: nextId++, text });
 
@@ -46,6 +48,7 @@ function ChatApp() {
 
   useEffect(() => {
     chatStream.on("data", (feature) => {
+      // Print the received message with a timestamp and client language
       const timestamp = new Date(
         parseInt(feature.timeGeneratedEpochMillis),
       ).toLocaleDateString("en-US", {
@@ -62,6 +65,7 @@ function ChatApp() {
       ]);
     });
 
+    // Cleanup on unmount
     chatStream.on("end", () => {
       setMessages((prev) => [
         ...prev,
@@ -74,6 +78,7 @@ function ChatApp() {
     });
   }, []);
 
+  // Handle user input
   useInput((char, key) => {
     if (key.return) {
       const text = input.trim();
@@ -106,6 +111,7 @@ function ChatApp() {
     }
   });
 
+  // Render the chat UI
   return (
     <Box flexDirection="column">
       <Box borderStyle={"single"} flexDirection="column">
