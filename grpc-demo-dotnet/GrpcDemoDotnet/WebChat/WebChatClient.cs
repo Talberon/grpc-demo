@@ -9,8 +9,10 @@ namespace GrpcDemoDotnet.WebChat
     public static class WebChatClient
     {
         private static CancellationTokenSource _cancellationTokenSource;
-
-        public static void Run()
+        private const string ClientLanguage = "C#";
+        private const string Nickname = "Charlie";
+        
+        public static async Task Run()
         {
             Console.WriteLine("Starting gRPC client...");
 
@@ -20,15 +22,68 @@ namespace GrpcDemoDotnet.WebChat
 
             //Define the chat room we want to join
             var chatRoom = new ChatRoom { ChatRoomId = "My Cool Room For Cool People" };
+            
+            //Join the room so we can see new messages
+            _ = JoinRoom(client, chatRoom); //Do not block.
+            
+            //Stream messages from Client -> Server
+            await StreamMessagesToRoom(client, chatRoom);
+            
+            //Accept user input
+            const string exitCommand = "/exit";
+            Console.WriteLine($"Input \"{exitCommand}\" to exit...");
+            string lastInput;
+            do
+            {
+                lastInput = Console.ReadLine();
+                Console.Write("\e[1A\e[2K"); //Clear the current line
+                
+                SendMessageToRoom(client, lastInput, chatRoom);
+                
+            } while (lastInput != exitCommand);
+            await _cancellationTokenSource.CancelAsync(); //Exit gracefully
+        }
 
-            //Run chat room on a separate thread
-            Console.WriteLine($"Connecting to chat room: {chatRoom}...");
-            var chatThread = new Thread(() => JoinRoomAndSendMessages(client, chatRoom).Wait());
-            chatThread.Start();
+        private static void SendMessageToRoom(Webchat.WebChat.WebChatClient client, string message, ChatRoom room)
+        {
+            client.SendMessage(new ChatMessage
+            {
+                Message = message,
+                ChatRoom = room,
+                ClientLanguage = ClientLanguage,
+                Nickname = Nickname,
+                TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+            });
+        }
 
-            Console.WriteLine("Press ENTER to exit...");
-            Console.ReadLine(); //Wait for user input
-            _cancellationTokenSource.Cancel(); //Causes a graceful exit
+        private static async Task StreamMessagesToRoom(Webchat.WebChat.WebChatClient client, ChatRoom chatRoom)
+        {
+            await SendStreamOfMessagesToServer(client, [
+                new ChatMessage
+                {
+                    ChatRoom = chatRoom,
+                    ClientLanguage = ClientLanguage,
+                    Message = "I was streamed by a client (1)!",
+                    Nickname = Nickname,
+                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                },
+                new ChatMessage
+                {
+                    ChatRoom = chatRoom,
+                    ClientLanguage = ClientLanguage,
+                    Message = "I was streamed by a client (2)!",
+                    Nickname = Nickname,
+                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                },
+                new ChatMessage
+                {
+                    ChatRoom = chatRoom,
+                    ClientLanguage = ClientLanguage,
+                    Message = "I was streamed by a client (3)!",
+                    Nickname = Nickname,
+                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                }
+            ]);
         }
 
         private static async Task SendStreamOfMessagesToServer(
@@ -56,55 +111,9 @@ namespace GrpcDemoDotnet.WebChat
             );
         }
 
-        private static async Task JoinRoomAndSendMessages(Webchat.WebChat.WebChatClient client, ChatRoom chatRoom)
+        private static async Task JoinRoom(Webchat.WebChat.WebChatClient client, ChatRoom chatRoom)
         {
             AsyncServerStreamingCall<ChatMessage> chatRoomStream = client.JoinChatRoom(chatRoom);
-
-            //Send a couple of chat messages to the server
-            client.SendMessage(new ChatMessage
-            {
-                Message = "Hello world!",
-                ChatRoom = chatRoom,
-                ClientLanguage = "C#",
-                Nickname = "Alice",
-                TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-            });
-
-            client.SendMessage(new ChatMessage
-            {
-                Message = "This is my second message!",
-                ChatRoom = chatRoom,
-                ClientLanguage = "C#",
-                Nickname = "Alice",
-                TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-            });
-
-            await SendStreamOfMessagesToServer(client, [
-                new ChatMessage
-                {
-                    ChatRoom = chatRoom,
-                    ClientLanguage = "C# (Streamed)",
-                    Message = "I was streamed by a client (1)!",
-                    Nickname = "Bob",
-                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                },
-                new ChatMessage
-                {
-                    ChatRoom = chatRoom,
-                    ClientLanguage = "C# (Streamed)",
-                    Message = "I was streamed by a client (2)!",
-                    Nickname = "Bob",
-                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                },
-                new ChatMessage
-                {
-                    ChatRoom = chatRoom,
-                    ClientLanguage = "C# (Streamed)",
-                    Message = "I was streamed by a client (3)!",
-                    Nickname = "Bob",
-                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                }]);
-
             //Use a cancellation token for graceful stream ending
             _cancellationTokenSource = new CancellationTokenSource();
             try

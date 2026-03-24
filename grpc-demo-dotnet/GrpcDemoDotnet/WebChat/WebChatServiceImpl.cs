@@ -46,7 +46,7 @@ namespace GrpcDemoDotnet.WebChat
 
             await foreach (ChatMessage message in requestStream.ReadAllAsync())
             {
-                Console.WriteLine($"[(Client -> Server) RECEIVED]: {message}");
+                Console.WriteLine($"[(Client>>>>Server) RECEIVED]: {message}");
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
@@ -66,7 +66,7 @@ namespace GrpcDemoDotnet.WebChat
             {
                 await foreach (ChatMessage requestMessage in requestStream.ReadAllAsync())
                 {
-                    Console.WriteLine($"[(Client <-> Server) RECEIVED]: {requestMessage}");
+                    Console.WriteLine($"[(Client<<>>Server) RECEIVED]: {requestMessage}");
 
                     var timeMessage = new ChatMessage
                     {
@@ -77,7 +77,7 @@ namespace GrpcDemoDotnet.WebChat
                         ChatRoom = requestMessage.ChatRoom
                     };
 
-                    Console.WriteLine($"[(Client <-> Server) SENDING]: {timeMessage}");
+                    Console.WriteLine($"[(Client<<>>Server) SENDING]: {timeMessage}");
                     await responseStream.WriteAsync(timeMessage);
                 }
             }

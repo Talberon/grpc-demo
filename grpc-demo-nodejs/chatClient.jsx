@@ -88,7 +88,7 @@ function ChatApp() {
         chatRoom,
         message: text,
         timeGeneratedEpochMillis: Date.now(),
-        nickname: "Deborah",
+        nickname: "Nelly",
         clientLanguage: "Javascript",
       };
       sendMessage(message)

@@ -20,6 +20,8 @@
     
     <ItemGroup>
         <Protobuf Include="Protobuf/movie-service.proto" GrpcServices="MovieCatalog" />
+        
+        <!-- Include our Web Chat .proto as a Protobuf resource. The gRPC plugin will generate the necessary code. -->
         <Protobuf Include="Protobuf/webchat-service.proto" GrpcServices="WebChat" />
     </ItemGroup>
     
