@@ -87,7 +87,7 @@ public class WebChatClient {
   private static void SendMessagesToRoom(WebChatBlockingStub client, ChatRoom chatRoom) {
     System.out.println("Sending messages to room: " + chatRoom.getChatRoomId() + "...");
 
-    client.sendMessage(ChatMessage.newBuilder()
+    var _ = client.sendMessage(ChatMessage.newBuilder()
         .setChatRoom(chatRoom)
         .setMessage("I love coffee!")
         .setNickname("Charlie")
@@ -96,7 +96,7 @@ public class WebChatClient {
         .build()
     );
 
-    client.sendMessage(ChatMessage.newBuilder()
+    var _ = client.sendMessage(ChatMessage.newBuilder()
         .setChatRoom(chatRoom)
         .setMessage("I'm going to go buy some!")
         .setNickname("Charlie")

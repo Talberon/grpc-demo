@@ -46,7 +46,7 @@ namespace GrpcDemoDotnet.WebChat
 
             await foreach (ChatMessage message in requestStream.ReadAllAsync())
             {
-                Console.WriteLine($"[(Client>>>>Server) RECEIVED]: {message}");
+                Console.WriteLine($"[(Stream Client>>Server) RECEIVED]: {message}");
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
@@ -62,25 +62,41 @@ namespace GrpcDemoDotnet.WebChat
         {
             Console.WriteLine("Starting bidirectional stream with client...");
 
-            while (!context.CancellationToken.IsCancellationRequested)
+            // Read the first message to determine which room this client is joining
+            if (!await requestStream.MoveNext(context.CancellationToken))
+                return;
+
+            ChatMessage current = requestStream.Current;
+            string roomId = current.ChatRoom.ChatRoomId;
+            
+            // Swallow the first message since it's acting as a "handshake"
+            await ChatRoomHub.PublishAsync(roomId, new ChatMessage
             {
-                await foreach (ChatMessage requestMessage in requestStream.ReadAllAsync())
+                ChatRoom = current.ChatRoom,
+                ClientLanguage = "SYSTEM",
+                Nickname = "SERVER",
+                Message = $"{current.Nickname} joined the room!",
+                TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+            }, context.CancellationToken);
+
+            // Subscribe to the room and forward new messages to the response stream
+            ChannelReader<ChatMessage> reader = ChatRoomHub.Subscribe(roomId);
+            Task forwardTask = Task.Run(async () =>
+            {
+                await foreach (ChatMessage message in reader.ReadAllAsync(context.CancellationToken))
                 {
-                    Console.WriteLine($"[(Client<<>>Server) RECEIVED]: {requestMessage}");
-
-                    var timeMessage = new ChatMessage
-                    {
-                        TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
-                        Message = $"The mockingbird says: {requestMessage.Message}",
-                        Nickname = "Time Server",
-                        ClientLanguage = "C#",
-                        ChatRoom = requestMessage.ChatRoom
-                    };
-
-                    Console.WriteLine($"[(Client<<>>Server) SENDING]: {timeMessage}");
-                    await responseStream.WriteAsync(timeMessage);
+                    await responseStream.WriteAsync(message);
                 }
+            });
+
+            // Publish each subsequent incoming message to the hub
+            await foreach (ChatMessage message in requestStream.ReadAllAsync(context.CancellationToken))
+            {
+                Console.WriteLine($"[(Stream Client<>Server) RECEIVED]: {message}");
+                await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
+
+            await forwardTask;
         }
     }
 }
