@@ -24,20 +24,29 @@ class ChatViewModel : ViewModel() {
     private val _messages = MutableStateFlow<List<WebChatProto.ChatMessage>>(emptyList())
     val messages: StateFlow<List<WebChatProto.ChatMessage>> = _messages
 
+    // joinSession starts a server-side streaming connection to receive chat messages from the server.
     fun joinSession() {
         viewModelScope.launch {
+            // Make the server-side streaming call
             client.joinChatRoom(chatRoom).collect { message ->
                 _messages.update { current -> current + message } // Append a message to the end of the list
             }
         }
     }
 
+    // sendMessage makes a unary call to submit a message to the room on the server
     fun sendMessage(message: String) {
         viewModelScope.launch {
             if (message.isEmpty()) return@launch
+            // Make the Unary call
             client.sendMessage(
-                WebChatProto.ChatMessage.newBuilder().setMessage(message).setNickname("Andy")
-                    .setClientLanguage("Kotlin (Android)").setChatRoom(chatRoom).build()
+                // gRPC's Kotlin codegen gives us this builder to construct WebChat messages.
+                WebChatProto.ChatMessage.newBuilder()
+                    .setMessage(message)
+                    .setNickname("Andy")
+                    .setClientLanguage("Kotlin (Android)")
+                    .setChatRoom(chatRoom)
+                    .build()
             )
         }
 

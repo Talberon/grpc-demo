@@ -7,12 +7,13 @@ using Webchat;
 
 namespace GrpcDemoDotnet.WebChat
 {
-    //Inherit from the Proto-generated gRPC class so we can define the methods
+    // Inherit from the Proto-generated gRPC class so we can define the methods
     public class WebChatServiceImpl : Webchat.WebChat.WebChatBase
     {
+        // ChatRoomHub maintains channels for asynchronous message updates for each chatroom.
         private static readonly ChatRoomHub ChatRoomHub = new();
 
-        //Unary call; sends a single message to a specified room
+        // Unary call; sends a single message to a specified room
         public override async Task<SendReceipt> SendMessage(ChatMessage request, ServerCallContext context)
         {
             Console.WriteLine($"[(Unary) RECEIVING]: {request}");
@@ -21,7 +22,7 @@ namespace GrpcDemoDotnet.WebChat
             return new SendReceipt { SentSuccessfully = true };
         }
 
-        //Server-side streaming; sends stream of messages to the client as they are added
+        // Server-side streaming; sends stream of messages to the client as they are added
         public override async Task JoinChatRoom(
             ChatRoom request,
             IServerStreamWriter<ChatMessage> responseStream,
@@ -36,7 +37,7 @@ namespace GrpcDemoDotnet.WebChat
             }
         }
 
-        //Client-side streaming; sends stream of messages to the server as they are added
+        // Client-side streaming; sends stream of messages to the server as they are added
         public override async Task<SendReceipt> StreamMessagesToServer(
             IAsyncStreamReader<ChatMessage> requestStream,
             ServerCallContext context
@@ -53,7 +54,7 @@ namespace GrpcDemoDotnet.WebChat
             return new SendReceipt { SentSuccessfully = true };
         }
 
-        //Bidirectional streaming; two streams open between client and server for communication
+        // Bidirectional streaming; two streams open between client and server for communication
         public override async Task JoinStreamSession(
             IAsyncStreamReader<ChatMessage> requestStream,
             IServerStreamWriter<ChatMessage> responseStream,
