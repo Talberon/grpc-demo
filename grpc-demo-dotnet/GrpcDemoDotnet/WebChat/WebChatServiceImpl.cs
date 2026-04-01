@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Grpc.Core;
@@ -10,14 +11,21 @@ namespace GrpcDemoDotnet.WebChat
     // Inherit from the Proto-generated gRPC class so we can define the methods
     public class WebChatServiceImpl : Webchat.WebChat.WebChatBase
     {
+        // Use this to pretty-print the json we receive in the console so it's easier to read.
+        private JsonSerializerOptions options = new()
+        {
+            WriteIndented = true,
+        };
+        
+        
         // ChatRoomHub maintains channels for asynchronous message updates for each chatroom.
         private static readonly ChatRoomHub ChatRoomHub = new();
 
         // Unary call; sends a single message to a specified room
-        public override async Task<SendReceipt> SendMessage(ChatMessage request, ServerCallContext context)
+        public override async Task<SendReceipt> SendMessage(ChatMessage message, ServerCallContext context)
         {
-            Console.WriteLine($"[(Unary) RECEIVING]: {request}");
-            await ChatRoomHub.PublishAsync(request.ChatRoom.ChatRoomId, request, context.CancellationToken);
+            Console.WriteLine($"[(Unary) RECEIVING]: {JsonSerializer.Serialize(message, options)}");
+            await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
 
             return new SendReceipt { SentSuccessfully = true };
         }
@@ -47,7 +55,7 @@ namespace GrpcDemoDotnet.WebChat
 
             await foreach (ChatMessage message in requestStream.ReadAllAsync())
             {
-                Console.WriteLine($"[(Stream Client>>Server) RECEIVED]: {message}");
+                Console.WriteLine($"[(Stream Client>>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}");
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
@@ -93,7 +101,7 @@ namespace GrpcDemoDotnet.WebChat
             // Publish each subsequent incoming message to the hub
             await foreach (ChatMessage message in requestStream.ReadAllAsync(context.CancellationToken))
             {
-                Console.WriteLine($"[(Stream Client<>Server) RECEIVED]: {message}");
+                Console.WriteLine($"[(Stream Client<>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}");
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
