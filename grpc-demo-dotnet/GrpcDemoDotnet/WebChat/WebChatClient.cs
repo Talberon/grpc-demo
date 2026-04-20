@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
@@ -11,7 +12,7 @@ namespace GrpcDemoDotnet.WebChat
         private static CancellationTokenSource _cancellationTokenSource;
         private const string ClientLanguage = "C#";
         private const string Nickname = "Charlie";
-        
+
         public static async Task Run()
         {
             Console.WriteLine("Starting gRPC client...");
@@ -22,12 +23,12 @@ namespace GrpcDemoDotnet.WebChat
             await StreamDemoMode(client); // For use in client-side streaming sessions
             // await UserMode(client); // For use in interactive sessions
         }
-        
+
         private static async Task StreamDemoMode(Webchat.WebChat.WebChatClient client)
         {
             //Define the chat room we want to join
             var chatRoom = new ChatRoom { ChatRoomId = "My Cool Room For Cool People" };
-            
+
             //Stream messages from Client -> Server
             await StreamMessagesToRoom(client, chatRoom);
         }
@@ -38,10 +39,7 @@ namespace GrpcDemoDotnet.WebChat
             var chatRoom = new ChatRoom { ChatRoomId = "My Cool Room For Cool People" };
             //Join the room so we can see new messages
             _ = JoinRoom(client, chatRoom); //Do not block.
-            
-            //Stream messages from Client -> Server
-            await StreamMessagesToRoom(client, chatRoom);
-            
+
             //Accept user input
             const string exitCommand = "/exit";
             Console.WriteLine($"Input \"{exitCommand}\" to exit...");
@@ -50,10 +48,10 @@ namespace GrpcDemoDotnet.WebChat
             {
                 lastInput = Console.ReadLine();
                 Console.Write("\e[1A\e[2K"); //Clear the current line
-                
+
                 SendMessageToRoom(client, lastInput, chatRoom);
-                
             } while (lastInput != exitCommand);
+
             await _cancellationTokenSource.CancelAsync(); //Exit gracefully
         }
 
@@ -71,33 +69,29 @@ namespace GrpcDemoDotnet.WebChat
 
         private static async Task StreamMessagesToRoom(Webchat.WebChat.WebChatClient client, ChatRoom chatRoom)
         {
-            await SendStreamOfMessagesToServer(client, [
-                new ChatMessage
-                {
-                    ChatRoom = chatRoom,
-                    ClientLanguage = ClientLanguage,
-                    Message = "I was streamed by a client (1)!",
-                    Nickname = Nickname,
-                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                },
-                new ChatMessage
-                {
-                    ChatRoom = chatRoom,
-                    ClientLanguage = ClientLanguage,
-                    Message = "I was streamed by a client (2)!",
-                    Nickname = Nickname,
-                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                },
-                new ChatMessage
-                {
-                    ChatRoom = chatRoom,
-                    ClientLanguage = ClientLanguage,
-                    Message = "I was streamed by a client (3)!",
-                    Nickname = Nickname,
-                    TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-                }
-            ]);
+            List<ChatMessage> messages =
+            [
+                CreateMessage(chatRoom, "COUNTDOWN!")
+            ];
+
+            for (int i = 10; i > 0; i--)
+            {
+                messages.Add(CreateMessage(chatRoom, $"{i}!"));
+            }
+            
+            messages.Add(CreateMessage(chatRoom, "LIFTOFF!"));
+
+            await SendStreamOfMessagesToServer(client, messages.ToArray());
         }
+
+        private static ChatMessage CreateMessage(ChatRoom chatRoom, string content) => new()
+        {
+            ChatRoom = chatRoom,
+            ClientLanguage = ClientLanguage,
+            Message = content,
+            Nickname = Nickname,
+            TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+        };
 
         private static async Task SendStreamOfMessagesToServer(
             Webchat.WebChat.WebChatClient client,
@@ -110,6 +104,7 @@ namespace GrpcDemoDotnet.WebChat
             foreach (ChatMessage message in messages)
             {
                 await call.RequestStream.WriteAsync(message);
+                await Task.Delay(TimeSpan.FromSeconds(1));
             }
 
             await call.RequestStream.CompleteAsync();
