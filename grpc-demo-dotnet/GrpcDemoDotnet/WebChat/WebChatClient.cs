@@ -15,14 +15,27 @@ namespace GrpcDemoDotnet.WebChat
         public static async Task Run()
         {
             Console.WriteLine("Starting gRPC client...");
-
             //Connect to the server
             var channel = new Channel("localhost", 9090, ChannelCredentials.Insecure);
             var client = new Webchat.WebChat.WebChatClient(channel);
 
+            await StreamDemoMode(client); // For use in client-side streaming sessions
+            // await UserMode(client); // For use in interactive sessions
+        }
+        
+        private static async Task StreamDemoMode(Webchat.WebChat.WebChatClient client)
+        {
             //Define the chat room we want to join
             var chatRoom = new ChatRoom { ChatRoomId = "My Cool Room For Cool People" };
             
+            //Stream messages from Client -> Server
+            await StreamMessagesToRoom(client, chatRoom);
+        }
+
+        private static async Task UserMode(Webchat.WebChat.WebChatClient client)
+        {
+            //Define the chat room we want to join
+            var chatRoom = new ChatRoom { ChatRoomId = "My Cool Room For Cool People" };
             //Join the room so we can see new messages
             _ = JoinRoom(client, chatRoom); //Do not block.
             

@@ -18,13 +18,20 @@ namespace GrpcDemoDotnet.WebChat
         };
         
         
+        private static void WriteColored(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
         // ChatRoomHub maintains channels for asynchronous message updates for each chatroom.
         private static readonly ChatRoomHub ChatRoomHub = new();
 
         // Unary call; sends a single message to a specified room
         public override async Task<SendReceipt> SendMessage(ChatMessage message, ServerCallContext context)
         {
-            Console.WriteLine($"[(Unary) RECEIVING]: {JsonSerializer.Serialize(message, options)}");
+            WriteColored($"[(Unary) RECEIVING]: {JsonSerializer.Serialize(message, options)}", ConsoleColor.Green);
             await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
 
             return new SendReceipt { SentSuccessfully = true };
@@ -55,7 +62,7 @@ namespace GrpcDemoDotnet.WebChat
 
             await foreach (ChatMessage message in requestStream.ReadAllAsync())
             {
-                Console.WriteLine($"[(Stream Client>>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}");
+                WriteColored($"[(Stream Client>>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}", ConsoleColor.Blue);
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
@@ -101,7 +108,7 @@ namespace GrpcDemoDotnet.WebChat
             // Publish each subsequent incoming message to the hub
             await foreach (ChatMessage message in requestStream.ReadAllAsync(context.CancellationToken))
             {
-                Console.WriteLine($"[(Stream Client<>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}");
+                WriteColored($"[(Stream Client<>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}", ConsoleColor.Magenta);
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
