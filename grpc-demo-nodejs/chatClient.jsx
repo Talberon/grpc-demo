@@ -47,6 +47,7 @@ function ChatApp() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Receive messages from the server (Server-Side Streaming)
     chatStream.on("data", (feature) => {
       // Print the received message with a timestamp and client language
       const timestamp = new Date(
@@ -91,6 +92,8 @@ function ChatApp() {
         nickname: "Nelly",
         clientLanguage: "Javascript",
       };
+
+      // Call Unary RPC to send the message
       sendMessage(message)
         .then((receipt) => {
           setMessages((prev) => [

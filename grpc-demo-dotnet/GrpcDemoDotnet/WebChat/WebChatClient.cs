@@ -9,7 +9,7 @@ namespace GrpcDemoDotnet.WebChat
 {
     public static class WebChatClient
     {
-        private static CancellationTokenSource _cancellationTokenSource;
+        // private static CancellationTokenSource _cancellationTokenSource;
         private const string ClientLanguage = "C#";
         private const string Nickname = "Charlie";
 
@@ -33,39 +33,39 @@ namespace GrpcDemoDotnet.WebChat
             await StreamMessagesToRoom(client, chatRoom);
         }
 
-        private static async Task UserMode(Webchat.WebChat.WebChatClient client)
-        {
-            //Define the chat room we want to join
-            var chatRoom = new ChatRoom { ChatRoomId = "My Cool Room For Cool People" };
-            //Join the room so we can see new messages
-            _ = JoinRoom(client, chatRoom); //Do not block.
-
-            //Accept user input
-            const string exitCommand = "/exit";
-            Console.WriteLine($"Input \"{exitCommand}\" to exit...");
-            string lastInput;
-            do
-            {
-                lastInput = Console.ReadLine();
-                Console.Write("\e[1A\e[2K"); //Clear the current line
-
-                SendMessageToRoom(client, lastInput, chatRoom);
-            } while (lastInput != exitCommand);
-
-            await _cancellationTokenSource.CancelAsync(); //Exit gracefully
-        }
-
-        private static void SendMessageToRoom(Webchat.WebChat.WebChatClient client, string message, ChatRoom room)
-        {
-            client.SendMessage(new ChatMessage
-            {
-                Message = message,
-                ChatRoom = room,
-                ClientLanguage = ClientLanguage,
-                Nickname = Nickname,
-                TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
-            });
-        }
+        // private static async Task UserMode(Webchat.WebChat.WebChatClient client)
+        // {
+        //     //Define the chat room we want to join
+        //     var chatRoom = new ChatRoom { ChatRoomId = "My Cool Room For Cool People" };
+        //     //Join the room so we can see new messages
+        //     _ = JoinRoom(client, chatRoom); //Do not block.
+        //
+        //     //Accept user input
+        //     const string exitCommand = "/exit";
+        //     Console.WriteLine($"Input \"{exitCommand}\" to exit...");
+        //     string lastInput;
+        //     do
+        //     {
+        //         lastInput = Console.ReadLine();
+        //         Console.Write("\e[1A\e[2K"); //Clear the current line
+        //
+        //         SendUnaryMessageToRoom(client, lastInput, chatRoom);
+        //     } while (lastInput != exitCommand);
+        //
+        //     await _cancellationTokenSource.CancelAsync(); //Exit gracefully
+        // }
+        //
+        // private static void SendUnaryMessageToRoom(Webchat.WebChat.WebChatClient client, string message, ChatRoom room)
+        // {
+        //     client.SendMessage(new ChatMessage
+        //     {
+        //         Message = message,
+        //         ChatRoom = room,
+        //         ClientLanguage = ClientLanguage,
+        //         Nickname = Nickname,
+        //         TimeGeneratedEpochMillis = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+        //     });
+        // }
 
         private static async Task StreamMessagesToRoom(Webchat.WebChat.WebChatClient client, ChatRoom chatRoom)
         {
@@ -119,26 +119,26 @@ namespace GrpcDemoDotnet.WebChat
             );
         }
 
-        private static async Task JoinRoom(Webchat.WebChat.WebChatClient client, ChatRoom chatRoom)
-        {
-            AsyncServerStreamingCall<ChatMessage> chatRoomStream = client.JoinChatRoom(chatRoom);
-            //Use a cancellation token for graceful stream ending
-            _cancellationTokenSource = new CancellationTokenSource();
-            try
-            {
-                await foreach (ChatMessage message in chatRoomStream.ResponseStream.ReadAllAsync(
-                                   _cancellationTokenSource.Token))
-                {
-                    //Print the chat messages from the server as they come in, formatted prettily
-                    Console.WriteLine(
-                        $"[{message.ChatRoom.ChatRoomId}] {message.Nickname} ({message.ClientLanguage}): {message.Message}"
-                    );
-                }
-            }
-            catch (RpcException e) when (e.Status.StatusCode == StatusCode.Cancelled)
-            {
-                Console.WriteLine("Streaming cancelled from client side.");
-            }
-        }
+        // private static async Task JoinRoom(Webchat.WebChat.WebChatClient client, ChatRoom chatRoom)
+        // {
+        //     AsyncServerStreamingCall<ChatMessage> chatRoomStream = client.JoinChatRoom(chatRoom);
+        //     //Use a cancellation token for graceful stream ending
+        //     _cancellationTokenSource = new CancellationTokenSource();
+        //     try
+        //     {
+        //         await foreach (ChatMessage message in chatRoomStream.ResponseStream.ReadAllAsync(
+        //                            _cancellationTokenSource.Token))
+        //         {
+        //             //Print the chat messages from the server as they come in, formatted prettily
+        //             Console.WriteLine(
+        //                 $"[{message.ChatRoom.ChatRoomId}] {message.Nickname} ({message.ClientLanguage}): {message.Message}"
+        //             );
+        //         }
+        //     }
+        //     catch (RpcException e) when (e.Status.StatusCode == StatusCode.Cancelled)
+        //     {
+        //         Console.WriteLine("Streaming cancelled from client side.");
+        //     }
+        // }
     }
 }

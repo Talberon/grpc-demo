@@ -34,6 +34,7 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
+	// Start the bi-directional Stream (Client <> Server)
 	stream, err := client.JoinStreamSession(ctx)
 	if err != nil {
 		panic(err)
@@ -42,6 +43,7 @@ func main() {
 	// Receive messages from the server in the background
 	go func() {
 		for {
+			// Consume a message from the stream (Server -> Client)
 			msg, err := stream.Recv()
 			if err == io.EOF || errors.Is(err, context.Canceled) {
 				return
@@ -59,7 +61,7 @@ func main() {
 		}
 	}()
 
-	//Initialize by sending empty message
+	//Initialize by sending empty message (Client -> Server "HANDSHAKE")
 	err = stream.Send(&webchatpb.ChatMessage{
 		ChatRoom:                 chatRoom,
 		Message:                  "HELLO WORLD",
@@ -84,6 +86,7 @@ func main() {
 			break
 		}
 
+		// Send messages over bi-directional stream (Client -> Server)
 		err := stream.Send(&webchatpb.ChatMessage{
 			ChatRoom:                 chatRoom,
 			Message:                  text,
