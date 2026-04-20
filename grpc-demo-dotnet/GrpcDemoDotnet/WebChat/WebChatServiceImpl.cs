@@ -31,7 +31,7 @@ namespace GrpcDemoDotnet.WebChat
         // Unary call; sends a single message to a specified room
         public override async Task<SendReceipt> SendMessage(ChatMessage message, ServerCallContext context)
         {
-            WriteColored($"[(Unary) RECEIVING]: {JsonSerializer.Serialize(message, options)}", ConsoleColor.Green);
+            WriteColored($"[{DateTime.Now:HH:mm:ss:fff}][(Unary) RECEIVING]:\n{JsonSerializer.Serialize(message, options)}\n", ConsoleColor.Green);
             await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
 
             return new SendReceipt { SentSuccessfully = true };
@@ -62,7 +62,7 @@ namespace GrpcDemoDotnet.WebChat
 
             await foreach (ChatMessage message in requestStream.ReadAllAsync())
             {
-                WriteColored($"[(Stream Client>>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}", ConsoleColor.Blue);
+                WriteColored($"[{DateTime.Now:HH:mm:ss:fff}][(Stream Client>>Server) RECEIVED]:\n{JsonSerializer.Serialize(message, options)}\n", ConsoleColor.Blue);
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
@@ -108,7 +108,7 @@ namespace GrpcDemoDotnet.WebChat
             // Publish each subsequent incoming message to the hub
             await foreach (ChatMessage message in requestStream.ReadAllAsync(context.CancellationToken))
             {
-                WriteColored($"[(Stream Client<>Server) RECEIVED]: {JsonSerializer.Serialize(message, options)}", ConsoleColor.Magenta);
+                WriteColored($"[{DateTime.Now:HH:mm:ss:fff}][(Stream Client<>Server) RECEIVED]:\n{JsonSerializer.Serialize(message, options)}\n", ConsoleColor.Magenta);
                 await ChatRoomHub.PublishAsync(message.ChatRoom.ChatRoomId, message, context.CancellationToken);
             }
 
